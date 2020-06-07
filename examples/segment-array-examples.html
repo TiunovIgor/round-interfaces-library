@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+        
+        <link rel="shortcut icon" href="../favicon.png"> 
+
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-array.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Segment Array Examples</div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Proportional</div>
+            <canvas id="ex-1" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Full Thickness</div>
+            <canvas id="ex-2" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Invert "Start with" by click</div>
+            <canvas id="ex-3" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Change position of segments by click</div>
+            <canvas id="ex-4" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Disappear-Appear <br> One By One</div>
+            <canvas id="ex-5" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+        
+        <div class="ex-block">
+            <div class="ex-caption">Disappear-Appear <br> Together</div>
+            <canvas id="ex-6" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Fading One By One</div>
+            <canvas id="ex-7" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div> 
+        
+        <div class="ex-block">
+            <div class="ex-caption">Fading Together</div>
+            <canvas id="ex-8" width="200" height="200">
+               <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // Proportional
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2);
+
+        let arr_1 = new SegmentArray('arr-1', context_1, c_1.x, c_1.y, 50, 25, -100, 135);
+        arr_1.segments_count = 6;
+        arr_1.proportional = true;
+        arr_1.segment_background = 'red';
+        arr_1.segment_border_color = 'black';
+        arr_1.build();
+        arr_1.draw();
+        // ~ Proportional ~
+        
+        // Full Thickness
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2);
+
+        let arr_2 = new SegmentArray('arr-2', context_2, c_2.x, c_2.y, 50, 25, -135, 135);
+        arr_2.segments_count = 4;
+        arr_2.full_thickness = true;
+        arr_2.segment_background = 'green';
+        arr_2.segment_border_color = 'black';
+        arr_2.build();
+        arr_2.draw();
+        arr_2.base_segment.background = 'white';
+        arr_2.base_segment.calc();
+        // ~ Full Thickness ~
+        
+        // Invert "Start with" by click
+        let canvas_3 = document.getElementById('ex-3');
+        let context_3 = canvas_3.getContext('2d');
+        context_3.width = canvas_3.width;
+        context_3.height = canvas_3.height;
+        let c_3 = new Point(context_3.width/2, context_3.height/2);
+
+        let arr_3 = new SegmentArray('arr-3', context_3, c_3.x, c_3.y, 50, 25, 0, 135);
+        arr_3.segments_count = 5;
+        arr_3.segment_background = 'blue';
+        arr_3.segment_border_color = 'black';
+        arr_3.build();
+        arr_3.draw();    
+                
+        canvas_3.addEventListener('click', function() {
+            context_3.clearRect(0, 0, canvas_3.width, canvas_3.height);
+            if(arr_3.start_with === 'segment') { arr_3.start_with = 'space'; }
+            else { arr_3.start_with = 'segment'; }
+            arr_3.build();
+            arr_3.draw();
+        });
+        // ~ Invert "Start with" by click ~
+        
+        // Change position of segments by click
+        let canvas_4 = document.getElementById('ex-4');
+        let context_4 = canvas_4.getContext('2d');
+        context_4.width = canvas_4.width;
+        context_4.height = canvas_4.height;
+        let c_4 = new Point(context_4.width/2, context_4.height/2);
+
+        let arr_4 = new SegmentArray('arr-4', context_4, c_4.x, c_4.y, 50, 25, -90, 360);
+        arr_4.segment_thickness = 0.4 * arr_4.thickness;
+        arr_4.segment_position = 'inner';
+        arr_4.segment_background = 'black';
+        arr_4.build();
+        arr_4.draw();        
+        
+        canvas_4.addEventListener('click', function() {
+            context_4.clearRect(0, 0, canvas_4.width, canvas_4.height);
+            if(arr_4.segment_position === 'inner') { arr_4.segment_position = 'middle'; }
+            else if(arr_4.segment_position === 'middle') { arr_4.segment_position = 'outer'; }
+            else if(arr_4.segment_position === 'outer') { arr_4.segment_position = 'inner'; };
+            arr_4.build();
+            arr_4.draw();
+        });
+        // ~ Change position of segments by click ~
+                
+        // Disappear-Appear One By One
+        let canvas_5 = document.getElementById('ex-5');
+        let context_5 = canvas_5.getContext('2d');
+        context_5.width = canvas_5.width;
+        context_5.height = canvas_5.height;
+        let c_5 = new Point(context_5.width/2, context_5.height/2); // Центр сегмента
+
+        let arr_5 = new SegmentArray('arr-5', context_5, c_5.x, c_5.y, 50, 25, 35, 180);
+        arr_5.segments_count = 5;
+        arr_5.proportional = true;
+        arr_5.start_with = 'space';
+        arr_5.segment_background = 'black';
+        arr_5.build();
+        arr_5.draw();
+        
+        addEventListener('segment-array-changed', function(e) {
+            if(e.detail.array === arr_5) {     
+                context_5.clearRect(0, 0, canvas_5.width, canvas_5.height);
+                arr_5.draw();
+            }
+        });
+        
+        canvas_5.addEventListener('click', function() {
+            if(!arr_5.in_progress) {
+                if(arr_5.segments_visible) { arr_5.disappear('one-by-one-clockwise', 0, 'to-axis', 5, 0); }
+                else { arr_5.appear('one-by-one-anticlockwise', 0, 'from-axis', 5, 0); }
+            }
+        });
+        // ~ Disappear-Appear One By One ~
+       
+        // Disappear-Appear <br> Together
+        let canvas_6 = document.getElementById('ex-6');
+        let context_6 = canvas_6.getContext('2d');
+        context_6.width = canvas_6.width;
+        context_6.height = canvas_6.height;
+        let c_6 = new Point(context_6.width/2, context_6.height/2); // Центр сегмента
+
+        let arr_6 = new SegmentArray('arr-6', context_6, c_6.x, c_6.y, 50, 25, 185, 120);
+        arr_6.segments_count = 4;
+        arr_6.proportional = true;
+        arr_6.start_with = 'space';
+        arr_6.build();
+        arr_6.draw();
+        
+        addEventListener('segment-array-changed', function(e) {
+            if(e.detail.array === arr_6) {     
+                context_6.clearRect(0, 0, canvas_6.width, canvas_6.height);
+                arr_6.draw();
+            }
+        });
+        
+        canvas_6.addEventListener('click', function() {
+            if(!arr_6.in_progress) {
+                if(arr_6.segments_visible) { arr_6.disappear('together', 0, 'clockwise', 2, 0); }
+                else { arr_6.appear('together', 0, 'anticlockwise', 2, 0); }
+            }
+        });
+        // ~ Disappear-Appear <br> Together ~
+        
+        // Fading One By One
+        let canvas_7 = document.getElementById('ex-7');
+        let context_7 = canvas_7.getContext('2d');
+        context_7.width = canvas_7.width;
+        context_7.height = canvas_7.height;
+        let c_7 = new Point(context_7.width/2, context_7.height/2); // Центр сегмента
+
+        let arr_7 = new SegmentArray('arr-7', context_7, c_7.x, c_7.y, 50, 25, 145, 195);
+        arr_7.segments_count = 8;
+        arr_7.proportional = true;
+        arr_7.start_with = 'space';
+        arr_7.segment_gradient = new SegmentGradient('radial', 'from-center', '#4034aa 0%, #0af03c 50%, #aa3f3c 100%');
+        //arr_7.segment_border_width = 1;
+        //arr_7.segment_border_color = 'black';
+        arr_7.build();
+        arr_7.draw();
+        
+        addEventListener('segment-array-changed', function(e) {
+            if(e.detail.array === arr_7) {     
+                context_7.clearRect(0, 0, canvas_7.width, canvas_7.height);
+                arr_7.draw();
+            }
+        });
+        
+        canvas_7.addEventListener('click', function() {
+            if(!arr_7.in_progress) {
+                if(arr_7.segments_visible) { arr_7.fadeOut('one-by-one-clockwise', 0, 5, 0); }
+                else { arr_7.fadeIn('one-by-one-anticlockwise', 0, 5, 0); }
+            }
+        });
+        // ~ Fading One By One ~     
+        
+        // Fading Together
+        let canvas_8 = document.getElementById('ex-8');
+        let context_8 = canvas_8.getContext('2d');
+        context_8.width = canvas_8.width;
+        context_8.height = canvas_8.height;
+        let c_8 = new Point(context_8.width/2, context_8.height/2); // Центр сегмента
+
+        let arr_8 = new SegmentArray('arr-8', context_8, c_8.x, c_8.y, 50, 25, 245, 95);
+        arr_8.segments_count = 8;
+        arr_8.proportional = true;
+        arr_8.start_with = 'space';
+        arr_8.build();
+        arr_8.draw();
+        
+        addEventListener('segment-array-changed', function(e) {
+            if(e.detail.array === arr_8) {     
+                context_8.clearRect(0, 0, canvas_8.width, canvas_8.height);
+                arr_8.draw();
+            }
+        });
+        
+        canvas_8.addEventListener('click', function() {
+            if(!arr_8.in_progress) {
+                if(arr_8.segments_visible) { arr_8.fadeOut('together', 0, 3, 0); }
+                else { arr_8.fadeIn('together', 0, 3, 0); }
+            }
+        });
+        // ~ Fading Together ~     
+    });   
+</script>

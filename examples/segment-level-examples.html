@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+
+        <link rel="shortcut icon" href="../favicon.png"> 
+        
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-level.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Segment Level Examples</div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Create Level</div>
+            <canvas id="ex-1" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+                
+        <div class="ex-block">
+            <div class="ex-caption">Invert "Visible" by click</div>
+            <canvas id="ex-2" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+                
+        <div class="ex-block">
+            <div class="ex-caption">Disappear-Appear <br> One By One</div>
+            <canvas id="ex-3" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+        
+        <div class="ex-block">
+            <div class="ex-caption">Disappear-Appear <br> Together</div>
+            <canvas id="ex-4" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Rotation for 45° during 3 seconds</div>
+            <canvas id="ex-5" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Fading One By One</div>
+            <canvas id="ex-6" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div> 
+        
+        <div class="ex-block">
+            <div class="ex-caption">Fading Together</div>
+            <canvas id="ex-7" width="200" height="200">
+               <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // Create Level       
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2);
+
+        let seg_1_1 = new Segment('seg-1-1', context_1, c_1.x, c_1.y, 30, 40, -90, 25);
+        let seg_1_2 = new Segment('seg-1-2', context_1, c_1.x, c_1.y, 30, 35, 15, 40);
+        let seg_1_3 = new Segment('seg-1-3', context_1, c_1.x, c_1.y, 30, 25, 100, 90);
+      
+        let lvl_1 = new SegmentLevel('lvl-1', context_1, c_1.x, c_1.y, 30);
+        lvl_1.addSegment(seg_1_1);
+        lvl_1.addSegment(seg_1_2);
+        lvl_1.addSegment(seg_1_3);
+        lvl_1.draw();
+        // ~ Create Level ~
+        
+        // Invert "Visible" by click
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2);
+
+        let seg_2_1 = new Segment('seg-2-1', context_2, c_2.x, c_2.y, 30, 40, -40, 25);
+        let seg_2_2 = new Segment('seg-2-2', context_2, c_2.x, c_2.y, 30, 35, 65, 40);
+        let seg_2_3 = new Segment('seg-2-3', context_2, c_2.x, c_2.y, 30, 25, 150, 90);
+      
+        let lvl_2 = new SegmentLevel('lvl-2', context_2, c_2.x, c_2.y, 30);
+        lvl_2.addSegment(seg_2_1);
+        lvl_2.addSegment(seg_2_2);
+        lvl_2.addSegment(seg_2_3);
+        lvl_2.draw();
+
+        addEventListener('segment-level-changed', function(e) {
+            if(e.detail.level === lvl_2) {     
+                context_2.clearRect(0, 0, canvas_2.width, canvas_2.height);
+                lvl_2.draw();
+            }
+        });
+        
+        canvas_2.addEventListener('click', function() {
+            lvl_2.visible = !lvl_2.visible;
+            lvl_2.build();
+        });
+        // ~ Invert "Visible" by click ~
+                
+        // Disappear-Appear One By One
+        let canvas_3 = document.getElementById('ex-3');
+        let context_3 = canvas_3.getContext('2d');
+        context_3.width = canvas_3.width;
+        context_3.height = canvas_3.height;
+        let c_3 = new Point(context_3.width/2, context_3.height/2);
+
+        let seg_3_1 = new Segment('seg-3-1', context_3, c_3.x, c_3.y, 30, 40, -10, 25);
+        seg_3_1.background = 'red';
+        seg_3_1.calc();
+        
+        let seg_3_2 = new Segment('seg-3-2', context_3, c_3.x, c_3.y, 30, 35, 95, 40);
+        seg_3_2.background = 'green';
+        seg_3_2.calc();
+        
+        let seg_3_3 = new Segment('seg-3-3', context_3, c_3.x, c_3.y, 30, 30, 210, 50);
+        seg_3_3.background = 'blue';
+        seg_3_3.calc();
+        
+        let lvl_3 = new SegmentLevel('lvl-3', context_3, c_3.x, c_3.y, 30);
+        lvl_3.addSegment(seg_3_1);
+        lvl_3.addSegment(seg_3_2);
+        lvl_3.addSegment(seg_3_3);
+        lvl_3.draw();
+
+        addEventListener('segment-level-changed', function(e) {
+            if(e.detail.level === lvl_3) {     
+                context_3.clearRect(0, 0, canvas_3.width, canvas_3.height);
+                lvl_3.draw();
+            }
+        });
+        
+        canvas_3.addEventListener('click', function() {
+            if(!lvl_3.in_progress) {
+                if(lvl_3.segments_visible) { lvl_3.disappear('one-by-one-clockwise', 0.5, 'to-axis', 2, 0); }
+                else { lvl_3.appear('one-by-one-anticlockwise', 0, 'from-axis', 2, 0.5); }
+            }
+        });
+        // ~ Disappear-Appear One By One ~
+        
+        // Disappear-Appear <br> Together
+        let canvas_4 = document.getElementById('ex-4');
+        let context_4 = canvas_4.getContext('2d');
+        context_4.width = canvas_4.width;
+        context_4.height = canvas_4.height;
+        let c_4 = new Point(context_4.width/2, context_4.height/2);
+
+        let seg_4_1 = new Segment('seg-4-1', context_4, c_4.x, c_4.y, 30, 40, -10, 45);
+        seg_4_1.background = 'red';
+        seg_4_1.calc();
+        
+        let seg_4_2 = new Segment('seg-4-2', context_4, c_4.x, c_4.y, 30, 35, 95, 60);
+        seg_4_2.background = 'green';
+        seg_4_2.calc();
+        
+        let seg_4_3 = new Segment('seg-4-3', context_4, c_4.x, c_4.y, 30, 30, 210, 75);
+        seg_4_3.background = 'blue';
+        seg_4_3.calc();
+        
+        let lvl_4 = new SegmentLevel('lvl-4', context_4, c_4.x, c_4.y, 30);
+        lvl_4.addSegment(seg_4_1);
+        lvl_4.addSegment(seg_4_2);
+        lvl_4.addSegment(seg_4_3);
+        lvl_4.draw();
+
+        addEventListener('segment-level-changed', function(e) {
+            if(e.detail.level === lvl_4) {     
+                context_4.clearRect(0, 0, canvas_4.width, canvas_4.height);
+                lvl_4.draw();
+            }
+        });
+        
+        canvas_4.addEventListener('click', function() {
+            if(!lvl_4.in_progress) {
+                if(lvl_4.segments_visible) { lvl_4.disappear('together', 0, 'clockwise', 2, 0); }
+                else { lvl_4.appear('together', 0, 'anticlockwise', 2, 0); }
+            }
+        });
+        // ~ Disappear-Appear <br> Together ~
+                
+        // Rotation for 45° during 3 seconds
+        let canvas_5 = document.getElementById('ex-5');
+        let context_5 = canvas_5.getContext('2d');
+        context_5.width = canvas_5.width;
+        context_5.height = canvas_5.height;
+        let c_5 = new Point(context_5.width/2, context_5.height/2); // Центр сегмента
+
+        let seg_5_1 = new Segment('seg-5-1', context_5, c_5.x, c_5.y, 15, 35, -30, 30);
+        seg_5_1.gradient = new SegmentGradient('radial', 'from-center', 'black 0%, white 100%')
+        seg_5_1.calc();
+        
+        let seg_5_2 = new Segment('seg-5-2', context_5, c_5.x, c_5.y, 40, 20, 95, 60);
+        seg_5_2.gradient = new SegmentGradient('radial', 'from-center', 'black 0%, white 100%')
+        seg_5_2.calc();
+        
+        let seg_5_3 = new Segment('seg-5-3', context_5, c_5.x, c_5.y, 25, 40, 210, 75);
+        seg_5_3.gradient = new SegmentGradient('radial', 'from-center', 'black 0%, white 100%')
+        seg_5_3.calc();
+        
+        let lvl_5 = new SegmentLevel('lvl-5', context_5, c_5.x, c_5.y, 15);
+        lvl_5.addSegment(seg_5_1);
+        lvl_5.addSegment(seg_5_2);
+        lvl_5.addSegment(seg_5_3);
+        lvl_5.draw();
+
+        addEventListener('segment-level-changed', function(e) {
+            if(e.detail.level === lvl_5) {     
+                context_5.clearRect(0, 0, canvas_5.width, canvas_5.height);
+                lvl_5.draw();
+            }
+        });
+        
+        canvas_5.addEventListener('click', function() {
+            if(!lvl_5.in_progress) {
+                lvl_5.rotate('one-by-one-clockwise', 0.5, 'clockwise', 45, 3, 0);
+            }
+        });
+        // ~ Rotation for 45° during 3 seconds ~
+       
+        // Fading One By One
+        let canvas_6 = document.getElementById('ex-6');
+        let context_6 = canvas_6.getContext('2d');
+        context_6.width = canvas_6.width;
+        context_6.height = canvas_6.height;
+        let c_6 = new Point(context_6.width/2, context_6.height/2); // Центр сегмента
+
+        let seg_6_1 = new Segment('seg-6-1', context_6, c_6.x, c_6.y, 15, 35, 30, 30);
+        seg_6_1.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_6_1.calc();
+        
+        let seg_6_2 = new Segment('seg-6-2', context_6, c_6.x, c_6.y, 40, 20, 105, 60);
+        seg_6_2.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_6_2.calc();
+        
+        let seg_6_3 = new Segment('seg-6-3', context_6, c_6.x, c_6.y, 25, 40, 230, 75);
+        seg_6_3.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_6_3.calc();
+        
+        let lvl_6 = new SegmentLevel('lvl-6', context_6, c_6.x, c_6.y, 15);
+        lvl_6.addSegment(seg_6_1);
+        lvl_6.addSegment(seg_6_2);
+        lvl_6.addSegment(seg_6_3);
+        lvl_6.draw();
+
+        addEventListener('segment-level-changed', function(e) {
+            if(e.detail.level === lvl_6) {     
+                context_6.clearRect(0, 0, canvas_6.width, canvas_6.height);
+                lvl_6.draw();
+            }
+        });
+        
+        canvas_6.addEventListener('click', function() {
+            if(!lvl_6.in_progress) {
+                if(lvl_6.segments_visible) { lvl_6.fadeOut('one-by-one-clockwise', 0, 3, 1); }
+                else { lvl_6.fadeIn('one-by-one-anticlockwise', 0.5, 3, 0); }
+            }
+        });
+        // ~ Fading One By One ~
+        
+        // Fading Together
+        let canvas_7 = document.getElementById('ex-7');
+        let context_7 = canvas_7.getContext('2d');
+        context_7.width = canvas_7.width;
+        context_7.height = canvas_7.height;
+        let c_7 = new Point(context_7.width/2, context_7.height/2); // Центр сегмента
+
+        let seg_7_1 = new Segment('seg-7-1', context_7, c_7.x, c_7.y, 30, 35, 15, 30);
+        seg_7_1.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_7_1.calc();
+        
+        let seg_7_2 = new Segment('seg-7-2', context_7, c_7.x, c_7.y, 40, 20, 60, 60);
+        seg_7_2.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_7_2.calc();
+        
+        let seg_7_3 = new Segment('seg-7-3', context_7, c_7.x, c_7.y, 30, 35, 135, 30);
+        seg_7_3.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_7_3.calc();
+        
+        let seg_7_4 = new Segment('seg-7-4', context_7, c_7.x, c_7.y, 40, 20, 180, 60);
+        seg_7_4.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_7_4.calc();
+        
+        let seg_7_5 = new Segment('seg-7-5', context_7, c_7.x, c_7.y, 30, 35, 255, 30);
+        seg_7_5.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_7_5.calc();
+        
+        let seg_7_6 = new Segment('seg-7-6', context_7, c_7.x, c_7.y, 40, 20, 300, 60);
+        seg_7_6.gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, purple 100%')
+        seg_7_6.calc();
+        
+        let lvl_7 = new SegmentLevel('lvl-7', context_7, c_7.x, c_7.y, 15);
+        lvl_7.addSegment(seg_7_1);
+        lvl_7.addSegment(seg_7_2);
+        lvl_7.addSegment(seg_7_3);
+        lvl_7.addSegment(seg_7_4);
+        lvl_7.addSegment(seg_7_5);
+        lvl_7.addSegment(seg_7_6);
+        lvl_7.draw();
+
+        addEventListener('segment-level-changed', function(e) {
+            if(e.detail.level === lvl_7) {     
+                context_7.clearRect(0, 0, canvas_7.width, canvas_7.height);
+                lvl_7.draw();
+            }
+        });
+        
+        canvas_7.addEventListener('click', function() {
+            if(!lvl_7.in_progress) {
+                if(lvl_7.segments_visible) { lvl_7.fadeOut('together', 0, 3, 1); }
+                else { lvl_7.fadeIn('together', 0.5, 3, 0); }
+            }
+        });
+        // ~ Fading Together ~        
+    });   
+</script>

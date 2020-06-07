@@ -1,0 +1,82 @@
+body {
+    width: 100%;
+    
+    font-family: "OpenSans";
+    font-size: 14pt;
+    background: #fff;
+    
+    text-align: center;
+    
+    padding: 0px;
+}
+
+#header {
+    width: 100%;
+    font-size: 24pt;
+    text-align: center;
+    
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.header-2 {
+    width: 100%;
+    font-size: 20pt;
+    text-align: center;
+    
+    margin-bottom: 50px;
+}
+
+.example-block {
+    width: 400px;
+    height: 450px;
+    margin: 50px;
+    
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+  
+    flex-direction: column;   
+    
+    position: relative;
+}
+
+.example-caption {
+    width: 400px;
+    height: 50px;
+    text-align: center;
+}
+
+#example-1 {      
+    width: 400px;
+    height: 400px;
+}
+
+#example-2 {
+    width: 400px;
+    height: 400px;
+}
+
+#example-3 {
+    width: 400px;
+    height: 400px;
+}
+
+.ex-block {
+    width: 200px;
+    height: 240px;
+    margin: 20px;
+    
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.ex-caption {
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    
+    font-size: 12pt;
+}

@@ -1,0 +1,45 @@
+#example-block-2 {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#hi-tech-button {
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    border-radius: 50%;
+    margin-top: 25px;
+    top: 155px;
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: radial-gradient(closest-side, #7f7f7f 0%, black 77%, black 78%, white 80%, #06ff1a 84%, #034400 96%, #00b050 100%);
+}
+
+#hi-tech-i {
+    width: 15px;
+    height: 55px;
+    position: absolute;
+    border: 1px solid black;
+    
+    background: linear-gradient(to right, #025a10 0%, #05ec27 25%, #00b050 45%, #00b050 55%, #05ec27 75%, #025a10 100%);
+}
+
+#hi-tech-button.toggle #hi-tech-i {
+    background: linear-gradient(to right, #777 0%, #aaa 25%, #eee 45%, #eee 55%, #aaa 75%, #777 100%);
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+        
+        <link rel="shortcut icon" href="../favicon.png"> 
+        
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../css/plain-color.css">
+        <link rel="stylesheet" type="text/css" href="../css/hi-tech.css">
+        <link rel="stylesheet" type="text/css" href="../css/futuristic.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-level.js"></script>
+        <script type="text/javascript" src="../js/segment-array.js"></script>
+        <script type="text/javascript" src="../js/segment-dot.js"></script>
+        <script type="text/javascript" src="../js/segment-dots-array.js"></script>
+        <script type="text/javascript" src="../js/segment-scale-mark.js"></script>
+        <script type="text/javascript" src="../js/segment-scale.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+                               
+        <script type="text/javascript" src="../gui-examples-js/plain-color.js"></script>
+        <script type="text/javascript" src="../gui-examples-js/hi-tech.js"></script>
+        <script type="text/javascript" src="../gui-examples-js/futuristic.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        
+        <div id="example-block-1" class="example-block">
+            <div class="example-caption">Plain Color</div>
+            <div id="plain-color-button"></div>
+            <canvas id="example-1" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div id="example-block-2" class="example-block">
+            <div class="example-caption">Hi-Tech</div>
+            <div id="hi-tech-button">
+                <div id="hi-tech-i"></div>
+            </div>
+            <canvas id="example-2" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div id="example-block-3" class="example-block">
+            <div class="example-caption">Futuristic</div>
+            <div id="futuristic-button"></div>
+            <canvas id="example-3" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+    </body>
+</html>
+
+<script>      
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        let interface_1 = new PlainColor('example-1');
+        let func_1 = interface_1.animate.bind(interface_1);
+        
+        let interface_2 = new HiTech('example-2');
+        let func_2 = interface_2.animate.bind(interface_2);
+            
+        let interface_3 = new Futuristic('example-3');
+        let func_3 = interface_3.animate.bind(interface_3);
+        
+        let plain_color_button = document.querySelector("#plain-color-button");
+        plain_color_button.addEventListener("click", function () {
+            plain_color_button.classList.add('toggle');
+            func_1();
+        });
+        addEventListener('plain-color-animation-finished', function() {
+            plain_color_button.classList.remove('toggle');
+        });        
+        
+        let hi_tech_button = document.querySelector("#hi-tech-button");
+        hi_tech_button.addEventListener("click", function() {
+            hi_tech_button.classList.add('toggle');
+            func_2();
+        });
+        addEventListener('hi-tech-animation-finished', function() {
+            hi_tech_button.classList.remove('toggle');
+        });
+        
+        let futuristic_button = document.querySelector("#futuristic-button");
+        futuristic_button.addEventListener("click", function() {
+            futuristic_button.classList.add('toggle');
+            func_3();
+        });
+        addEventListener('futuristic-animation-finished', function() {
+            futuristic_button.classList.remove('toggle');
+        });
+    });   
+</script>

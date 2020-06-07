@@ -1,0 +1,31 @@
+#example-block-1 {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#plain-color-button {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 5px;
+    top: 174px;
+    left: 150px;
+    
+    background: url('../svg/plain-color-button.svg');
+    background-repeat: no-repeat;
+    background-size: 100px;    
+}
+
+#plain-color-button.toggle {
+    background: url('../svg/plain-color-button-toggle.svg');
+    background-repeat: no-repeat;
+    background-size: 100px;
+}

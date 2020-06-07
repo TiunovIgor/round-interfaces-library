@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+
+        <link rel="shortcut icon" href="../favicon.png"> 
+        
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Segment Examples</div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Default Segment</div>
+            <canvas id="ex-1" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Segment Borders</div>
+            <canvas id="ex-2" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Segment Gradient</div>
+            <canvas id="ex-3" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+        
+        <div class="ex-block">
+            <div class="ex-caption">Invert Visibility by click</div>
+            <canvas id="ex-4" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Disappear to center - <br> Appear from center</div>
+            <canvas id="ex-5" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div> 
+        
+        <div class="ex-block">
+            <div class="ex-caption">Disappear to axis - <br> Appear from axis</div>
+            <canvas id="ex-6" width="200" height="200">
+               <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+            
+        <div class="ex-block">
+            <div class="ex-caption">Disappear clockwise - <br> Appear anticlockwise</div>
+            <canvas id="ex-7" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Rotation for 45° during 3 seconds</div>
+            <canvas id="ex-8" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div> 
+            
+        <div class="ex-block">
+            <div class="ex-caption">Fading by click</div>
+            <canvas id="ex-9" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas> 
+        </div> 
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // Default Segment
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2); // Центр сегмента
+
+        let seg_1 = new Segment('seg-1', context_1, c_1.x, c_1.y, 50, 25, -100, 135);
+        seg_1.draw();       
+        // ~ Default Segment ~
+        
+        // Segment Borders
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2); // Центр сегмента
+
+        let seg_2 = new Segment('seg-2', context_2, c_2.x, c_2.y, 50, 25, -135, 135);
+        seg_2.border_opening_width = 3;
+        seg_2.border_opening_color = 'red';
+        seg_2.border_outer_width = 2;
+        seg_2.border_outer_color = 'green';
+        seg_2.border_inner_width = 2;
+        seg_2.border_inner_color = 'blue';
+        seg_2.border_closing_width = 3;
+        seg_2.border_closing_color = 'black';
+        seg_2.calc();
+        seg_2.draw();        
+        // ~ Segment Borders ~
+        
+        // Segment Gradient
+        let canvas_3 = document.getElementById('ex-3');
+        let context_3 = canvas_3.getContext('2d');
+        context_3.width = canvas_3.width;
+        context_3.height = canvas_3.height;
+        let c_3 = new Point(context_3.width/2, context_3.height/2); // Центр сегмента
+
+        let seg_3 = new Segment('seg-3', context_3, c_3.x, c_3.y, 50, 25, 0, 135);
+        seg_3.gradient = new SegmentGradient('radial', 'from-center', 'red 0%, rgba(0, 255, 0, 0.5) 50%, #0000ff 100%');
+        seg_3.draw();        
+        // ~ Segment Gradient ~
+        
+        // Invert Visibility by click
+        let canvas_4 = document.getElementById('ex-4');
+        let context_4 = canvas_4.getContext('2d');
+        context_4.width = canvas_4.width;
+        context_4.height = canvas_4.height;
+        let c_4 = new Point(context_4.width/2, context_4.height/2); // Центр сегмента
+
+        let seg_4 = new Segment('seg-4', context_4, c_4.x, c_4.y, 50, 25, 95, 140);
+        seg_4.draw();        
+        
+        addEventListener('segment-changed', function(e) {
+            if(e.detail.segment === seg_4) {
+                context_4.clearRect(0, 0, canvas_4.width, canvas_4.height);
+                seg_4.draw();
+            }
+        });
+        
+        canvas_4.addEventListener('click', function() {
+            seg_4.visible = !seg_4.visible;
+            seg_4.calc();
+        });
+        // ~ Default Segment ~
+        
+        // Disappear to center - Appear from center
+        let canvas_5 = document.getElementById('ex-5');
+        let context_5 = canvas_5.getContext('2d');
+        context_5.width = canvas_5.width;
+        context_5.height = canvas_5.height;
+        let c_5 = new Point(context_5.width/2, context_5.height/2); // Центр сегмента
+
+        let seg_5 = new Segment('seg-5', context_5, c_5.x, c_5.y, 50, 25, 35, 180);
+        seg_5.draw();        
+        
+        addEventListener('segment-changed', function(e) {
+            if(e.detail.segment === seg_5) {
+                context_5.clearRect(0, 0, canvas_5.width, canvas_5.height);
+                seg_5.draw();
+            }
+        });
+        
+        canvas_5.addEventListener('click', function() {
+            if(!seg_5.in_progress) {
+                if(seg_5.visible) { seg_5.disappear('to-center', 1, 1); }
+                else { seg_5.appear('from-center', 1, 2); }
+            }
+        });
+        // ~ Disappear from outside - Appear from inside ~
+       
+        // Disappear to axis - Appear from axis
+        let canvas_6 = document.getElementById('ex-6');
+        let context_6 = canvas_6.getContext('2d');
+        context_6.width = canvas_6.width;
+        context_6.height = canvas_6.height;
+        let c_6 = new Point(context_6.width/2, context_6.height/2); // Центр сегмента
+
+        let seg_6 = new Segment('seg-6', context_6, c_6.x, c_6.y, 50, 25, 185, 120);
+        //seg_6.background = 'green';
+        //seg_6.border_opening_width = 2;
+        //seg_6.border_opening_color = 'blue';
+        seg_6.calc();
+        seg_6.draw();        
+        
+        addEventListener('segment-changed', function(e) {
+            if(e.detail.segment === seg_6) {
+                context_6.clearRect(0, 0, canvas_6.width, canvas_6.height);
+                seg_6.draw();
+            }
+        });
+        
+        canvas_6.addEventListener('click', function() {
+            if(!seg_6.in_progress) {
+                if(seg_6.visible) { seg_6.disappear('to-axis', 1, 1); }
+                else { seg_6.appear('from-axis', 1, 1); }
+            }
+        });
+        // ~ Disappear to axis - Appear from axis ~
+        
+        // Disappear clockwise - Appear anticlockwise
+        let canvas_7 = document.getElementById('ex-7');
+        let context_7 = canvas_7.getContext('2d');
+        context_7.width = canvas_7.width;
+        context_7.height = canvas_7.height;
+        let c_7 = new Point(context_7.width/2, context_7.height/2); // Центр сегмента
+
+        let seg_7 = new Segment('seg-7', context_7, c_7.x, c_7.y, 50, 25, 245, 95);
+        seg_7.draw();        
+        
+        addEventListener('segment-changed', function(e) {
+            if(e.detail.segment === seg_7) {
+                context_7.clearRect(0, 0, canvas_7.width, canvas_7.height);
+                seg_7.draw();
+            }
+        });
+        
+        canvas_7.addEventListener('click', function() {
+            if(!seg_7.in_progress) {
+                if(seg_7.visible) { seg_7.disappear('clockwise', 1, 1); }
+                else { seg_7.appear('anticlockwise', 1, 0.5); }
+            }
+        });
+        // ~ Disappear clockwise - Appear anticlockwise ~
+        
+        // Rotation for 45° during 3 seconds
+        let canvas_8 = document.getElementById('ex-8');
+        let context_8 = canvas_8.getContext('2d');
+        context_8.width = canvas_8.width;
+        context_8.height = canvas_8.height;
+        let c_8 = new Point(context_8.width/2, context_8.height/2); // Центр сегмента
+
+        let seg_8 = new Segment('seg-8', context_8, c_8.x, c_8.y, 50, 25, -90, 45);
+        seg_8.background = 'red';
+        seg_8.draw();        
+        
+        addEventListener('segment-changed', function(e) {
+            if(e.detail.segment === seg_8) {
+                context_8.clearRect(0, 0, canvas_8.width, canvas_8.height);
+                seg_8.draw();
+            }
+        });
+        
+        canvas_8.addEventListener('click', function() {
+            if(!seg_8.in_progress) { seg_8.rotate('clockwise', 45, 3, 1); }
+        });
+        // ~ Rotation for 45° during 3 seconds ~
+        
+        // Fading by click
+        let canvas_9 = document.getElementById('ex-9');
+        let context_9 = canvas_9.getContext('2d');
+        context_9.width = canvas_9.width;
+        context_9.height = canvas_9.height;
+        let c_9 = new Point(context_9.width/2, context_9.height/2); // Центр сегмента
+
+        let seg_9 = new Segment('seg-9', context_9, c_9.x, c_9.y, 50, 25, 230, 65);
+        seg_9.background = '#00ff00';
+        //seg_9.border_color = 'red';
+        //seg_9.gradient = new SegmentGradient('radial', 'from-center', 'red 0%, rgba(0, 255, 0, 0.5) 50%, #0000ff 100%');
+        seg_9.calc();
+        seg_9.draw();        
+        
+        addEventListener('segment-changed', function(e) {
+            if(e.detail.segment === seg_9) {
+                context_9.clearRect(0, 0, canvas_9.width, canvas_9.height);
+                seg_9.draw();
+            }
+        });
+        
+        canvas_9.addEventListener('click', function() {
+            if(!seg_9.in_progress) {
+                if(seg_9.visible) { seg_9.fadeOut(3, 0); }
+                else { seg_9.fadeIn(3, 0); }
+            }
+        });
+        // ~ Fading by click ~
+    });   
+</script>
