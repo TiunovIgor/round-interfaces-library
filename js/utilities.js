@@ -81,7 +81,7 @@ function rgbaObjToStr(obj) {
 function libraryInfo() {
     let lib = {
         'name' : 'Round Interfaces Library',
-        'version' : '0.1'
+        'version' : '2.0'
     };
     
     return lib;

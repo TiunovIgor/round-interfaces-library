@@ -199,45 +199,77 @@ Segment.prototype.draw = function() {
         }
                                      
         // Draw Fill
-        this.context.moveTo(dx1, dy1);           
-
-        this.context.beginPath();        
-        this.context.lineTo(dx2, dy2);                        
-        this.context.arc(cx, cy, r_out, start_a, end_a);           
-        this.context.arc(cx, cy, r_in, end_a, start_a, true);
-        this.context.lineTo(dx1, dy1);              
-
-        if(gradient !== null && gradient instanceof SegmentGradient) {            
-            let canvas_gradient;
-
-            if(gradient.type === 'radial') {
-                if(gradient.direction === 'from-center') { canvas_gradient = this.context.createRadialGradient(cx, cy, r_in, cx, cy, r_out); }
-                else if(gradient.direction === 'to-center') { canvas_gradient = this.context.createRadialGradient(cx, cy, r_out, cx, cy, r_in); }
-            }
-            else if(gradient.type === 'linear') {
-                let x1 = (dx1 + dx4) / 2;
-                let y1 = (dy1 + dy4) / 2;
-                let x2 = r_out * Math.cos((end_a + start_a) / 2) + this.cx;
-                let y2 = r_out * Math.sin((end_a + start_a) / 2) + this.cy;  
-
-                if(gradient.direction === 'from-center') { canvas_gradient = this.context.createLinearGradient(x1, y1, x2, y2); }
-                else if(gradient.direction === 'to-center') { canvas_gradient = this.context.createLinearGradient(x2, y2, x1, y1); }
-                else if(gradient.direction === 'from-opening') { canvas_gradient = this.context.createLinearGradient(dx2, dy2, dx3, dy3); }
-                else if(gradient.direction === 'from-closing') { canvas_gradient = this.context.createLinearGradient(dx3, dy3, dx2, dy2); }
-            }
-
-            gradient.stops.forEach(function(stop) {
-                canvas_gradient.addColorStop(stop.offset, stop.color);
-            });
-
-            this.context.fillStyle = canvas_gradient;
+        if(gradient !== null && gradient instanceof SegmentGradient && gradient.type === 'conic') {
+            let arc_length = Math.floor(gradient.resolution * 2 * Math.PI * r_out);                
+            let img_data = gradient.getImageDataByArcLength(arc_length).data;
+            let da = Math.abs(end_a - start_a) / arc_length;
+                                   
+            for(let i = 0; i < arc_length; i++)
+            {                  
+                let angle;
+                
+                if(gradient.direction === 'clockwise') { angle = start_a + i * da; }
+                else if(gradient.direction === 'anticlockwise') { angle = end_a - i * da; }                
+                
+                let gx1 = r_in * Math.cos(angle) + cx;
+                let gy1 = r_in * Math.sin(angle) + cy;
+                let gx2 = r_out * Math.cos(angle) + cx;
+                let gy2 = r_out * Math.sin(angle) + cy;                
+                               
+                let index = i * 4;
+                let color = 'rgba(' + img_data[index] + ',' + img_data[index + 1] + ',' + img_data[index + 2] + ',' + (img_data[index + 3] / 255) + ')';
+               
+                this.context.beginPath();
+                this.context.moveTo(gx1, gy1);
+                this.context.lineTo(gx2, gy2);                
+                this.context.lineWidth = 1 / gradient.resolution;
+                this.context.strokeStyle = color;
+                this.context.stroke();
+                
+                this.context.closePath();                
+            }           
         }
-        else {
-            this.context.fillStyle = background;
-        }            
-        this.context.fill();        
-        this.context.closePath();    
-    
+        else {        
+            this.context.moveTo(dx1, dy1);           
+
+            this.context.beginPath();        
+            this.context.lineTo(dx2, dy2);                        
+            this.context.arc(cx, cy, r_out, start_a, end_a);           
+            this.context.arc(cx, cy, r_in, end_a, start_a, true);
+            this.context.lineTo(dx1, dy1);              
+
+            if(gradient !== null && gradient instanceof SegmentGradient) {            
+                let canvas_gradient;
+
+                if(gradient.type === 'radial') {
+                    if(gradient.direction === 'from-center') { canvas_gradient = this.context.createRadialGradient(cx, cy, r_in, cx, cy, r_out); }
+                    else if(gradient.direction === 'to-center') { canvas_gradient = this.context.createRadialGradient(cx, cy, r_out, cx, cy, r_in); }
+                }
+                else if(gradient.type === 'linear') {
+                    let x1 = (dx1 + dx4) / 2;
+                    let y1 = (dy1 + dy4) / 2;
+                    let x2 = r_out * Math.cos((end_a + start_a) / 2) + this.cx;
+                    let y2 = r_out * Math.sin((end_a + start_a) / 2) + this.cy;  
+
+                    if(gradient.direction === 'from-center') { canvas_gradient = this.context.createLinearGradient(x1, y1, x2, y2); }
+                    else if(gradient.direction === 'to-center') { canvas_gradient = this.context.createLinearGradient(x2, y2, x1, y1); }
+                    else if(gradient.direction === 'from-opening') { canvas_gradient = this.context.createLinearGradient(dx2, dy2, dx3, dy3); }
+                    else if(gradient.direction === 'from-closing') { canvas_gradient = this.context.createLinearGradient(dx3, dy3, dx2, dy2); }
+                }
+
+                gradient.stops.forEach(function(stop) {
+                    canvas_gradient.addColorStop(stop.offset, stop.color);
+                });
+
+                this.context.fillStyle = canvas_gradient;
+            }
+            else {
+                this.context.fillStyle = background;
+            }            
+            this.context.fill();        
+            this.context.closePath();    
+        }
+        
         // Draw Borders        
         
         // Draw Opening Border
@@ -727,6 +759,23 @@ Segment.prototype.stopFadingOut = function() {
     this.in_progress = false;
     
     this.calc();
+};
+
+Segment.prototype.isPointInside = function(x, y) {    
+    let init_angle = this.init_angle % 360;
+    while(init_angle < 0) { init_angle += 360; }
+    
+    let px = x - this.cx;
+    let py = this.cy - y;
+    let r = Math.sqrt(Math.pow(px, 2) + Math.pow(py, 2));
+    let a = - (Math.atan2(py, px) * 180 / Math.PI);
+    while(a < 0) { a += 360; }
+        
+    let res = true;
+    if(r < this.r_in || r > this.r_out) { res = false; }
+    if((a < init_angle && (a + 360) > (init_angle + this.angle)) || a > (init_angle + this.angle)) { res = false; }
+      
+    return res;
 };
 
 Segment.prototype.instanceCopy = function() {

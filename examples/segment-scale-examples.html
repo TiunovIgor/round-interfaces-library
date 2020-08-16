@@ -10,6 +10,7 @@
                                
         <script type="text/javascript" src="../js/segment.js"></script>
         <script type="text/javascript" src="../js/segment-scale-mark.js"></script>
+        <script type="text/javascript" src="../js/segment-scale-sign.js"></script>        
         <script type="text/javascript" src="../js/segment-scale.js"></script>
         <script type="text/javascript" src="../js/segment-array.js"></script>
         <script type="text/javascript" src="../js/segment-dot.js"></script>
@@ -61,7 +62,14 @@
             <canvas id="ex-6" width="200" height="200">
                <div class="canvas-off">use a canvas-compatible browser</div>
             </canvas>
-        </div>       
+        </div>  
+        
+        <div class="ex-block">
+            <div class="ex-caption">Scale With Labels</div>
+            <canvas id="ex-7" width="200" height="200">
+               <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>  
     </body>
 </html>
 
@@ -237,6 +245,59 @@
                 else { scale_6.fadeIn('together', 0, 2, 0.5); }
             }
         });
-        // ~ Fading Together ~     
+        // ~ Fading Together ~   
+        
+        // Scale With Labels
+        let canvas_7 = document.getElementById('ex-7');
+        let context_7 = canvas_7.getContext('2d');
+        context_7.width = canvas_7.width;
+        context_7.height = canvas_7.height;
+        let c_7 = new Point(context_7.width/2, context_7.height/2); // Центр сегмента
+
+        let scale_7 = new SegmentScale('scale-7', context_7, c_7.x, c_7.y, 50, 20, 180, 180);
+                
+        let signs_1 = { 'signs_array' : ['0', '1', '2', '3', '4', '5'],
+            'text_options' : {
+                'font' : '14pt Arial',
+                'color' : 'black',
+                'border_width' : 0,
+                'border_color' : 'black',
+                'direction' : 'vertical'
+            }
+        };
+        
+        let signs_2 = { 'signs_array' : ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'], 'text_options' : {
+                'font' : '12pt Arial',
+                'color' : 'gray',
+                'border_width' : 0,
+                'border_color' : 'rgba(0, 0, 0, 0)',
+                'direction' : 'clockwise'
+            }
+        };
+        
+        scale_7.levels = [
+            { 'divisions_count' : 5, 'mark_length' : 17, 'mark_width' : 2, 'mark_color' : 'black', 'signs' : signs_1 },
+            { 'divisions_count' : 3, 'mark_length' : 13, 'mark_width' : 1, 'mark_color' : 'black', 'signs' : signs_2 },
+            { 'divisions_count' : 2, 'mark_length' : 6, 'mark_width' : 0.5, 'mark_color' : 'black' }
+        ];
+        scale_7.mark_position = 'inner';
+        scale_7.sign_r_in = 80;
+        scale_7.build();
+        scale_7.draw();  
+        
+        addEventListener('segment-scale-changed', function(e) {
+            if(e.detail.scale === scale_7) {     
+                context_7.clearRect(0, 0, canvas_7.width, canvas_7.height);
+                scale_7.draw();
+            }
+        });
+        
+        canvas_7.addEventListener('click', function() {
+            if(!scale_7.in_progress) {
+                if(scale_7.marks_visible) { scale_7.fadeOut('together', 0, 2, 0); }
+                else { scale_7.fadeIn('together', 0, 2, 0.5); }
+            }
+        });
+        // ~ Scale With Labels ~   
     });   
 </script>

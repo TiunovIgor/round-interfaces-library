@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 30 120" width="30pt" height="120pt">
+    <defs>
+        <clipPath id="_clipPath_22D5UoQIUw580bTIIEJLesPVRvRwsSdF">
+            <rect width="30" height="120"/>
+        </clipPath>
+    </defs>
+    <g clip-path="url(#_clipPath_22D5UoQIUw580bTIIEJLesPVRvRwsSdF)">
+        <path d=" M 15 7 L 27 47 L 22.5 105 Q 22.031 109.594 20.906 111.75 C 19.707 114.049 17.607 114.9 15 115 M 14.963 6.965 L 2.963 46.965 L 7.463 104.965 Q 7.932 109.559 9.057 111.715 C 10.256 114.014 12.356 114.865 14.963 114.965" fill-rule="evenodd" fill="rgb(11,61,147)" vector-effect="non-scaling-stroke" stroke-width="3" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="15" y1="38.563" x2="9.25" y2="51.625" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <path d=" M 15 38.531 Q 18.563 38.531 20.344 45.75 C 20.805 48.773 20.94 52.408 20.719 56.625 L 19.875 67.688 C 19.691 70.837 18.889 73.597 17.438 75.938 Q 15.829 78.532 15 78.375 M 15.023 38.531 C 14.725 38.531 14.437 38.569 14.158 38.645 Q 11.237 39.436 9.679 45.75 C 9.218 48.773 9.083 52.408 9.304 56.625 L 10.148 67.688 C 10.332 70.837 11.134 73.597 12.585 75.938 Q 14.194 78.532 15.023 78.375" fill-rule="evenodd" fill="none" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <path d=" M 15 84.094 L 19.313 85.969 L 17.719 104.156 L 15 104.25 M 14.969 84.109 L 10.656 85.984 L 12.25 104.172 L 14.969 104.266" fill-rule="evenodd" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <path d=" M 15 17.469 L 23.344 46.719 L 22.125 65.156 L 20.25 65.25 M 14.999 17.469 L 6.655 46.719 L 7.874 65.156 L 9.749 65.25" fill-rule="evenodd" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="20.326" y1="63.717" x2="14.027" y2="78.1" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="18.313" y1="40.625" x2="9.813" y2="60.063" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="16.75" y1="39.188" x2="9.5" y2="55.625" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="19.43" y1="43.273" x2="10.125" y2="64.283" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="20.326" y1="46.684" x2="10.6" y2="68.713" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="20.748" y1="51.324" x2="11.338" y2="72.721" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="20.537" y1="57.283" x2="12.393" y2="75.832" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="10.875" y1="86.25" x2="19.078" y2="88.5" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="10.969" y1="88.875" x2="18.938" y2="91.055" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="11.156" y1="91.5" x2="18.656" y2="93.539" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="11.391" y1="93.891" x2="18.422" y2="95.813" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="11.578" y1="96.211" x2="18.234" y2="98.063" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="11.789" y1="98.531" x2="18.023" y2="100.242" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+        <line x1="12" y1="100.875" x2="17.844" y2="102.469" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
+    </g>
+</svg>

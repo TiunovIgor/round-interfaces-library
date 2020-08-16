@@ -19,12 +19,25 @@ function SegmentScale(id, context, center_x, center_y, inner_radius, thickness, 
     this.levels = [];
     this.divisions = [];
     this.marks = [];
+    this.signs = [];
+    
+    this.min_value;
+    this.max_value;
     
     this.mark_position = '';
     this.mark_r_in = this.r_in;
     
+    this.sign_position = '';
+    this.sign_r_in = this.r_in + 15;
+    this.sign_font = '10pt Arial';
+    this.sign_text_color = 'black';
+    this.sign_text_border_width = 0;
+    this.sign_text_border_color = 'rgba(0, 0, 0, 0)';
+    this.sign_text_direction = 'vertical'; // vertical, clockwise, anticlockwise, from_center, to_center
+    
     this.visible = true;
     this.marks_visible = true;
+    this.signs_visible = true;
     this.in_progress = false;
      
     this.appeared_marks = [];
@@ -39,11 +52,14 @@ function SegmentScale(id, context, center_x, center_y, inner_radius, thickness, 
 SegmentScale.prototype.build = function() {
     this.divisions = [];
     this.marks = [];
+    this.signs = [];
     
     this.base_segment = new Segment(this.id + '_base_segment', this.context, this.cx, this.cy, this.r_in, this.thickness, this.init_angle, this.angle);
     
     if(this.gradient) { this.base_segment.gradient = this.gradient.instanceCopy(); }
     this.base_segment.background = this.background;
+    this.base_segment.border_width = this.border_width;
+    this.base_segment.border_color = this.border_color;
     
     this.base_segment.calc();
     
@@ -66,29 +82,72 @@ SegmentScale.prototype.build = function() {
         let level = this.levels[i];
         let subdivision = this.divisions[i];
         
-        let mark_r_in = this.r_in;
+        let mark_r_in = this.mark_r_in;
         let mark_length = level.mark_length;
-        
+                
         if(this.mark_position === 'inner') { mark_r_in = this.r_in; }
         else if(this.mark_position === 'middle') { mark_r_in = this.r_in + (this.thickness - mark_length) / 2; }
         else if(this.mark_position === 'outer') { mark_r_in = this.r_out - mark_length; }
-                
-        for(let j=0; j <= subdivision.divisions_count; j++) {
-            if((j === subdivision.divisions_count) && (i !== 0 || this.angle !== 360)) continue;
-            if(j % level.divisions_count === 0) continue;
+        
+        // Signs
+        let signs = null;
+        let signs_array = null;
+        let text_options = null;
+
+        let sign_r_in = this.sign_r_in;
+        
+        if(level.hasOwnProperty('signs')) {
+            signs = level.signs;
             
-            let mark_angle = this.init_angle + subdivision.division_angle * j;                
-            let mark = new SegmentScaleMark(this.id + '_m_' + (i+1) + '_' + (j), this.context, this.cx, this.cy, mark_r_in, mark_length, mark_angle);
+            if(signs.hasOwnProperty('signs_array')) {
+                signs_array = signs.signs_array;
+            }
+            
+            if(signs.hasOwnProperty('text_options')) {
+                text_options = signs.text_options;
+            }
+        }
+                
+        let k = 0;
+        
+        for(let j=0; j <= subdivision.divisions_count; j++) {
+            if(i !== 0) {
+                if((j === subdivision.divisions_count) && (i !== 0 || this.angle !== 360)) continue;
+                if(j % level.divisions_count === 0) continue;
+            }         
+            else {
+                if(this.angle === 360 && j === 0) continue;
+            }
+            
+            let angle = this.init_angle + subdivision.division_angle * j;                
+            let mark = new SegmentScaleMark(this.id + '_m_' + (i+1) + '_' + (j), this.context, this.cx, this.cy, mark_r_in, mark_length, angle);
             mark.width = level.mark_width;
             mark.color = level.mark_color;
             mark.visible = this.marks_visible;
             mark.calc();
             this.marks.push(mark);
-        }
+
+            if(signs_array !== null) {
+                if(typeof signs_array[k] !== 'undefined') {
+                    let sign = new SegmentScaleSign(this.id + '_s_' + (i+1) + '_' + (k), this.context, this.cx, this.cy, sign_r_in, signs_array[k], angle);
+                    if(typeof text_options !== 'undefined') {
+                        if(typeof text_options.hasOwnProperty('font')) { sign.font = text_options.font; }
+                        if(typeof text_options.hasOwnProperty('color')) { sign.text_color = text_options.color; }
+                        if(typeof text_options.hasOwnProperty('border_width')) { sign.text_border_width = text_options.border_width; }
+                        if(typeof text_options.hasOwnProperty('border_color')) { sign.text_border_color = text_options.border_color; }
+                        if(typeof text_options.hasOwnProperty('direction')) { sign.text_direction = text_options.direction; }
+                    }
+                    sign.calc();
+                    this.signs.push(sign);
+                    
+                    k++;
+                }
+            }
+        }       
     }
             
     let scale = this;
-    
+        
     addEventListener("segment-changed", function(e) { 
         if(e.detail.segment === scale.base_segment) {
             dispatchEvent(new CustomEvent("segment-scale-changed", { detail : { scale : scale } } ));
@@ -97,6 +156,12 @@ SegmentScale.prototype.build = function() {
 
     addEventListener("segment-scale-mark-changed", function(e) {
         if(scale.marks.indexOf(e.detail.mark) >= 0) {
+            dispatchEvent(new CustomEvent("segment-scale-changed", { detail : { scale : scale } } ));
+        }
+    });
+    
+    addEventListener("segment-scale-sign-changed", function(e) {
+        if(scale.signs.indexOf(e.detail.sign) >= 0) {
             dispatchEvent(new CustomEvent("segment-scale-changed", { detail : { scale : scale } } ));
         }
     });
@@ -138,6 +203,10 @@ SegmentScale.prototype.draw = function() {
     
     this.marks.forEach(function(mark) {
         mark.draw();
+    });
+    
+    this.signs.forEach(function(sign) {
+        sign.draw();
     });
 };
 

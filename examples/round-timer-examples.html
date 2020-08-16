@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+
+        <link rel="shortcut icon" href="../favicon.png"> 
+        
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-progress-bar.js"></script>
+        <script type="text/javascript" src="../js/segment-timer.js"></script>
+        
+        <script type="text/javascript" src="../js/segment-array-progress-bar.js"></script>
+        <script type="text/javascript" src="../js/segment-array-timer.js"></script>
+                
+        <script type="text/javascript" src="../js/segment-dot.js"></script>
+        <script type="text/javascript" src="../js/segment-dots-array-progress-bar.js"></script>
+        <script type="text/javascript" src="../js/segment-dots-array-timer.js"></script>
+
+        <script type="text/javascript" src="../js/segment-scale-mark.js"></script>
+        <script type="text/javascript" src="../js/segment-scale-sign.js"></script>
+        <script type="text/javascript" src="../js/segment-scale.js"></script>
+        <script type="text/javascript" src="../js/segment-arrow.js"></script>        
+        <script type="text/javascript" src="../js/segment-gauge.js"></script>
+        <script type="text/javascript" src="../js/segment-gauge-timer.js"></script>
+        
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>        
+        
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Round Timer Examples</div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Segment Timer</div>
+            <canvas id="ex-1" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Segment Array Timer</div>
+            <canvas id="ex-2" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+                
+        <div class="ex-block">
+            <div class="ex-caption">Segment Dots Array Timer</div>
+            <canvas id="ex-3" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+            
+        <div class="ex-block">
+            <div class="ex-caption">Segment Gauge Timer</div>
+            <canvas id="ex-4" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // Segment Timer
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2);
+
+        let timer_1 = new SegmentTimer('timer-1', context_1, c_1.x, c_1.y, 60, 20);
+        timer_1.max_value = 10;
+        timer_1.value = timer_1.max_value;
+        timer_1.build();
+        timer_1.base_segment.border_outer_width = 1;
+        timer_1.base_segment.border_outer_color = 'none';
+        timer_1.base_segment.border_inner_width = 3;
+        timer_1.base_segment.border_inner_color = 'black';
+        timer_1.base_segment.background = '#fefefe';
+        timer_1.base_segment.calc();
+        timer_1.active_segment.r_in = 62;
+        timer_1.active_segment.thickness = 15;
+        timer_1.active_segment.gradient = new SegmentGradient('radial', 'from-center', '#FFFF00 50%, #FFC000 100%');
+        timer_1.active_segment.border_opening_color = 'black';
+        timer_1.active_segment.border_closing_color = 'black';
+        timer_1.active_segment.border_outer_color = 'black';
+        timer_1.active_segment.calc();
+        timer_1.font = '30px Open Sans';
+        timer_1.calc();
+        timer_1.draw();       
+                
+        addEventListener('segment-timer-changed', function(e) {
+            if(e.detail.timer === timer_1) {
+                context_1.clearRect(0, 0, canvas_1.width, canvas_1.height);
+                timer_1.draw();
+            }
+        });
+        
+        addEventListener('segment-timer-is-up', function(e) {
+            if(e.detail.timer === timer_1) {
+                timer_1.stop();
+            }
+        });
+        
+        canvas_1.addEventListener('click', function() {
+            if(!timer_1.in_progress) {
+                timer_1.start();
+            }
+            else {
+                if(timer_1.on_pause) { timer_1.start(); }
+                else { timer_1.pause(); }
+            }
+        });
+        // ~ Segment Timer ~
+        
+        // Segment Array Timer
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2);
+
+        let timer_2 = new SegmentArrayTimer('timer-2', context_2, c_2.x, c_2.y, 60, 20);
+        timer_2.max_value = 5;
+        timer_2.value = timer_2.max_value;
+        timer_2.font = '40px Open Sans';
+        timer_2.units = ' s';
+        timer_2.background = 'rgba(0, 0, 0, 0)';
+        timer_2.border_color = 'none';
+        timer_2.segment_background = 'rgba(240, 240, 240, 1)';
+        timer_2.active_segment_background = '#00A0E9';
+        timer_2.build();
+        timer_2.calc();
+        timer_2.draw();   
+        
+        addEventListener('segment-array-timer-changed', function(e) {
+            if(e.detail.timer === timer_2) {
+                context_2.clearRect(0, 0, canvas_2.width, canvas_2.height);
+                timer_2.draw();
+            }
+        });
+        
+        addEventListener('segment-array-timer-is-up', function(e) {
+            if(e.detail.timer === timer_2) {
+                timer_2.stop();
+            }
+        });
+        
+        canvas_2.addEventListener('click', function() {
+            if(!timer_2.in_progress) {
+                timer_2.start();
+            }
+            else {
+                if(timer_2.on_pause) { timer_2.start(); }
+                else { timer_2.pause(); }
+            }
+        });
+        // ~ Segment Array Timer ~
+        
+        // Segment Dots Array Timer
+        let canvas_3 = document.getElementById('ex-3');
+        let context_3 = canvas_3.getContext('2d');
+        context_3.width = canvas_3.width;
+        context_3.height = canvas_3.height;
+        let c_3 = new Point(context_3.width/2, context_3.height/2);
+
+        let timer_3 = new SegmentDotsArrayTimer('timer-3', context_3, c_3.x, c_3.y, 60, 20);
+        timer_3.max_value = 5;
+        timer_3.value = timer_3.max_value;
+        timer_3.font = '50px Open Sans';
+        timer_3.units = '';
+        timer_3.background = 'rgba(0, 0, 0, 0)';
+        timer_3.border_color = 'rgba(0, 0, 0, 0)';
+        timer_3.dots_count = 24;
+        timer_3.dot_radius = 5;
+        timer_3.active_dot_background = '#E60033';
+        timer_3.text_border_color = 'none';
+        timer_3.build();
+        timer_3.calc();
+        timer_3.draw();       
+                
+        addEventListener('segment-dots-array-timer-changed', function(e) {
+            if(e.detail.timer === timer_3) {
+                context_3.clearRect(0, 0, canvas_3.width, canvas_3.height);
+                timer_3.draw();
+            }
+        });
+        
+        addEventListener('segment-dots-array-timer-is-up', function(e) {
+            if(e.detail.timer === timer_3) {
+                timer_3.stop();
+            }
+        });
+        
+        canvas_3.addEventListener('click', function() {
+            if(!timer_3.in_progress) {
+                timer_3.start();
+            }
+            else {
+                if(timer_3.on_pause) { timer_3.start(); }
+                else { timer_3.pause(); }
+            }
+        });
+        // ~ Segment Dots Array Timer ~
+        
+        // Segment Gauge Timer
+        let canvas_4 = document.getElementById('ex-4');
+        let context_4 = canvas_4.getContext('2d');
+        context_4.width = canvas_4.width;
+        context_4.height = canvas_4.height;
+        let c_4 = new Point(context_4.width/2, context_4.height/2);
+
+        let timer_4 = new SegmentGaugeTimer('timer-4', context_4, c_4.x, c_4.y, 0, 80, -90, 360);
+        timer_4.max_value = 60;
+        timer_4.build();        
+        
+        timer_4.scale.r_in = 70;
+        timer_4.scale.thickness = 10;
+        timer_4.scale.mark_position = 'outer';
+        
+        let signs = { 'signs_array' : ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+            'text_options' : {
+                'font' : 'italic 12pt Arial',
+                'color' : 'black',
+                'border_width' : 0,
+                'border_color' : 'rgba(0, 0, 0, 0)',
+                'direction' : 'vertical'
+            }
+        };
+                
+        timer_4.scale.levels = [
+            { 'divisions_count' : 12, 'mark_length' : 10, 'mark_width' : 2, 'mark_color' : 'black', 'signs' : signs },
+            { 'divisions_count' : 5, 'mark_length' : 5, 'mark_width' : 1, 'mark_color' : 'black' }
+        ];        
+        timer_4.scale.sign_r_in = 55;
+        timer_4.scale.background = 'white';
+        timer_4.scale.border_color = 'rgba(0, 0, 0, 0)';
+        timer_4.scale.build();
+        timer_4.scale.calc();
+        
+        timer_4.base_segment.background = 'white';
+        timer_4.base_segment.calc();
+        
+        timer_4.frame.r_in = 80;
+        timer_4.frame.thickness = 5;
+        timer_4.frame.gradient = new SegmentGradient('radial', 'from-center', 'black 20%, rgba(200, 200, 200, 1) 70%, rgba(10, 10, 10, 1) 100%');
+        timer_4.frame.border_color = 'gray';
+        timer_4.calc();
+               
+        timer_4.arrow.setImgSrc('../svg/arrow-one.svg');
+        timer_4.arrow.length = 70;
+        timer_4.arrow.width = 4;
+        timer_4.arrow.img_offset_x = 2;
+        timer_4.arrow.img_offset_y = 4;
+        timer_4.arrow.calc();
+        
+        timer_4.setValue(timer_4.max_value);
+
+        timer_4.text = '';
+        timer_4.text_border_color = 'rgba(0, 0, 0, 0)';
+        timer_4.calc();
+        
+        timer_4.draw();    
+        
+        //console.log(gauge_3.img_src);
+               
+        addEventListener('segment-gauge-timer-changed', function(e) {
+            if(e.detail.timer === timer_4) {
+                context_4.clearRect(0, 0, canvas_4.width, canvas_4.height);
+                timer_4.draw();
+            }
+        });
+        
+        addEventListener('segment-gauge-timer-is-up', function(e) {
+            if(e.detail.timer === timer_4) {
+                timer_4.stop();
+            }
+        });
+        
+        canvas_4.addEventListener('click', function() {
+            if(!timer_4.in_progress) {
+                timer_4.start();
+            }
+            else {
+                if(timer_4.on_pause) { timer_4.start(); }
+                else { timer_4.pause(); }
+            }
+        });
+        // ~ Segment Gauge Timer ~
+    });   
+</script>

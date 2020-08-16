@@ -70,7 +70,7 @@
         context_1.height = canvas_1.height;
         let c_1 = new Point(context_1.width/2, context_1.height/2);
 
-        let dot_1 = new Dot('dot-1', context_1, c_1.x, c_1.y, 25);
+        let dot_1 = new SegmentDot('dot-1', context_1, c_1.x, c_1.y, 25);
         dot_1.draw();        
         // ~ Default Dot ~
         
@@ -81,7 +81,7 @@
         context_2.height = canvas_2.height;
         let c_2 = new Point(context_2.width/2, context_2.height/2);
 
-        let dot_2 = new Dot('dot-2', context_2, c_2.x, c_2.y, 20);
+        let dot_2 = new SegmentDot('dot-2', context_2, c_2.x, c_2.y, 20);
         dot_2.background = 'yellow';
         dot_2.border_width = 3;
         dot_2.border_color = 'green';
@@ -96,7 +96,7 @@
         context_3.height = canvas_3.height;
         let c_3 = new Point(context_3.width/2, context_3.height/2); // Центр сегмента
 
-        let dot_3 = new Dot('dot-3', context_3, c_3.x, c_3.y, 25);
+        let dot_3 = new SegmentDot('dot-3', context_3, c_3.x, c_3.y, 25);
         dot_3.gradient = new SegmentGradient('radial', 'from-center', 'white 0%, #000 100%');
         dot_3.draw();        
         // ~ Segment Gradient ~
@@ -108,7 +108,7 @@
         context_4.height = canvas_4.height;
         let c_4 = new Point(context_4.width/2, context_4.height/2); // Центр сегмента
 
-        let dot_4 = new Dot('dot-4', context_4, c_4.x, c_4.y, 30);
+        let dot_4 = new SegmentDot('dot-4', context_4, c_4.x, c_4.y, 30);
         dot_4.draw();        
         
         addEventListener('segment-dot-changed', function(e) {
@@ -131,7 +131,7 @@
         context_5.height = canvas_5.height;
         let c_5 = new Point(context_5.width/2, context_5.height/2); // Центр сегмента
 
-        let dot_5 = new Dot('dot-5', context_5, c_5.x, c_5.y, 25);
+        let dot_5 = new SegmentDot('dot-5', context_5, c_5.x, c_5.y, 25);
         dot_5.draw();        
         
         addEventListener('segment-dot-changed', function(e) {
@@ -156,7 +156,7 @@
         context_6.height = canvas_6.height;
         let c_6 = new Point(context_6.width/2, context_6.height/2);
 
-        let dot_6 = new Dot('dot-6', context_6, c_6.x, c_6.y, 15);
+        let dot_6 = new SegmentDot('dot-6', context_6, c_6.x, c_6.y, 15);
         dot_6.gradient = new SegmentGradient('radial', 'from-center', 'rgba(0, 255, 0, 0.5) 0%, #0000ff 100%');
         dot_6.calc();
         dot_6.draw();        

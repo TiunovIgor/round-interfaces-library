@@ -82,7 +82,7 @@ SegmentDotsArray.prototype.build = function() {
         let dot_center_x = this.base_radius * Math.cos(dot_init_a) + this.cx; // Координата X центра точки
         let dot_center_y = this.base_radius * Math.sin(dot_init_a) + this.cy; // Координата Y центра точки
                         
-        let dot = new Dot(this.id + '_d_' + (i+1), this.context, dot_center_x, dot_center_y, this.dot_radius);
+        let dot = new SegmentDot(this.id + '_d_' + (i+1), this.context, dot_center_x, dot_center_y, this.dot_radius);
         if(this.dot_gradient) { dot.gradient = this.dot_gradient.instanceCopy(); }
         dot.background = this.dot_background;
         dot.border_width = this.dot_border_width;

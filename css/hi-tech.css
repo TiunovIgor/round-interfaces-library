@@ -28,7 +28,7 @@
     align-items: center;
     justify-content: center;
 
-    background: radial-gradient(closest-side, #7f7f7f 0%, black 77%, black 78%, white 80%, #06ff1a 84%, #034400 96%, #00b050 100%);
+    background: radial-gradient(closest-side, #7f7f7f 0%, black 77%, black 78%, #c3ffc8 80%, #06ff1a 84%, #034400 96%, #00b050 100%);
 }
 
 #hi-tech-i {

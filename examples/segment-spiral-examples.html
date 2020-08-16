@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+
+        <link rel="shortcut icon" href="../favicon.png"> 
+        
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-spiral.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Segment Spiral Examples</div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Inner Clockwise Spiral</div>
+            <canvas id="ex-1" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Inner Anticlockwise Spiral</div>
+            <canvas id="ex-2" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Outer Clockwise Spiral</div>
+            <canvas id="ex-3" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>       
+        
+        <div class="ex-block">
+            <div class="ex-caption">Outer Anticlockwise Spiral</div>
+            <canvas id="ex-4" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Disappear anticlockwise - <br> Appear clockwise</div>
+            <canvas id="ex-5" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div> 
+        
+        <div class="ex-block">
+            <div class="ex-caption">Rotation until click</div>
+            <canvas id="ex-6" width="200" height="200">
+               <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // Inner Clockwise Spiral
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2);
+
+        let spiral_1 = new SegmentSpiral('spiral-1', context_1, c_1.x, c_1.y, 70, 20, -120, 60);
+        spiral_1.position = 'inner';
+        spiral_1.direction = 'clockwise';
+        spiral_1.background = '#E60012';
+        //spiral_1.gradient = new SegmentGradient('conic', 'anticlockwise', 'red 0%, orange 15%, yellow 30%, green 45%, aqua 60%, blue 75%, purple 90%, red 100%');
+        spiral_1.calc();
+        spiral_1.draw();       
+        // ~ Inner Clockwise Spiral ~
+        
+        // Inner Anticlockwise Spiral
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2);
+
+        let spiral_2 = new SegmentSpiral('spiral-2', context_2, c_2.x, c_2.y, 70, 20, -120, 60);
+        spiral_2.position = 'inner';
+        spiral_2.direction = 'anticlockwise';
+        spiral_2.gradient = new SegmentGradient('radial', 'to-center', '#920783 0%, #00A0C1 100%');
+        //spiral_2.gradient = new SegmentGradient('conic', 'anticlockwise', 'red 0%, orange 15%, yellow 30%, green 45%, aqua 60%, blue 75%, purple 90%, red 100%');
+        spiral_2.calc();
+        spiral_2.draw();       
+        // ~ Inner Anticlockwise Spiral ~
+        
+        // Outer Clockwise Spiral
+        let canvas_3 = document.getElementById('ex-3');
+        let context_3 = canvas_3.getContext('2d');
+        context_3.width = canvas_3.width;
+        context_3.height = canvas_3.height;
+        let c_3 = new Point(context_3.width/2, context_3.height/2);
+
+        let spiral_3 = new SegmentSpiral('spiral-3', context_3, c_3.x, c_3.y, 70, 20, -120, 60);
+        spiral_3.position = 'outer';
+        spiral_3.direction = 'clockwise';
+        //spiral_3.gradient = new SegmentGradient('conic', 'anticlockwise', 'red 0%, orange 15%, yellow 30%, green 45%, aqua 60%, blue 75%, purple 90%, red 100%');
+        //spiral_3.border_outer_color = 'red';
+        //spiral_3.border_closing_width = 3;
+        //spiral_3.border_spiral_width = 2;
+        //spiral_3.border_spiral_color = 'blue';
+        spiral_3.calc();
+        spiral_3.draw();           
+        // ~ Outer Clockwise Spiral ~
+        
+        // Outer Anticlockwise Spiral
+        let canvas_4 = document.getElementById('ex-4');
+        let context_4 = canvas_4.getContext('2d');
+        context_4.width = canvas_4.width;
+        context_4.height = canvas_4.height;
+        let c_4 = new Point(context_4.width/2, context_4.height/2);
+
+        let spiral_4 = new SegmentSpiral('spiral-4', context_4, c_4.x, c_4.y, 70, 20, -120, 60);
+        spiral_4.position = 'outer';
+        spiral_4.direction = 'anticlockwise';
+        //spiral_4.gradient = new SegmentGradient('conic', 'anticlockwise', 'red 0%, orange 15%, yellow 30%, green 45%, aqua 60%, blue 75%, purple 90%, red 100%');
+        spiral_4.calc();
+        spiral_4.draw();       
+        // ~ Outer Anticlockwise Spiral ~
+        
+        // Disappear anticlockwise - Appear clockwise
+        let canvas_5 = document.getElementById('ex-5');
+        let context_5 = canvas_5.getContext('2d');
+        context_5.width = canvas_5.width;
+        context_5.height = canvas_5.height;
+        let c_5 = new Point(context_5.width/2, context_5.height/2);
+
+        let spiral_5 = new SegmentSpiral('spiral-5', context_5, c_5.x, c_5.y, 70, 20, -150, 120);
+        spiral_5.gradient = new SegmentGradient('conic', 'clockwise', 'red 0%, orange 15%, yellow 30%, green 45%, aqua 60%, blue 75%, purple 90%, red 100%');
+        spiral_5.position = 'inner';
+        spiral_5.direction = 'clockwise';
+        spiral_5.calc();
+        spiral_5.draw();        
+        
+        addEventListener('segment-spiral-changed', function(e) {
+            if(e.detail.spiral === spiral_5) {
+                context_5.clearRect(0, 0, canvas_5.width, canvas_5.height);
+                spiral_5.draw();
+            }
+        });
+        
+        canvas_5.addEventListener('click', function() {
+            if(!spiral_5.in_progress) {
+                if(spiral_5.visible) { spiral_5.disappear('anticlockwise', 2, 0); }
+                else { spiral_5.appear('clockwise', 2, 0); }               
+            }
+        });
+        // ~ Disappear anticlockwise - Appear clockwise ~
+       
+        // Rotation until click
+        let canvas_6 = document.getElementById('ex-6');
+        let context_6 = canvas_6.getContext('2d');
+        context_6.width = canvas_6.width;
+        context_6.height = canvas_6.height;
+        let c_6 = new Point(context_6.width/2, context_6.height/2);
+
+        let spiral_6 = new SegmentSpiral('spiral-6', context_6, c_6.x, c_6.y, 50, 15, -90, 45);
+        spiral_6.draw();        
+        
+        addEventListener('segment-spiral-changed', function(e) {
+            if(e.detail.spiral === spiral_6) {
+                context_6.clearRect(0, 0, canvas_6.width, canvas_6.height);
+                spiral_6.draw();
+            }
+        });
+        
+        let go = false;
+        
+        addEventListener('segment-spiral-rotated', function(e) {
+            if(e.detail.spiral === spiral_6) {
+                if(go) { spiral_6.rotate('clockwise', 360, 1, 0); }
+            }
+        });
+        
+        canvas_6.addEventListener('click', function() {
+            if(!spiral_6.in_progress) {
+                if(go === false) {
+                    spiral_6.rotate('clockwise', 360, 1, 0);
+                }
+                go = !go;
+            }
+            else {
+                go = false;
+            }
+        });
+        // ~ Rotation until click ~
+    });   
+</script>

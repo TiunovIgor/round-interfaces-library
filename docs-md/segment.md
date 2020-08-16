@@ -6,11 +6,12 @@
 
 ## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
-3. [Examples] (#examples)  
-4. [Properties](#properties)  
-5. [Methods](#methods)  
-6. [Events](#events)  
+2. [Object dependencies](#dependencies)
+3. [Object creation](#constructor)  
+4. [Examples] (#examples)  
+5. [Properties](#properties)  
+6. [Methods](#methods)  
+7. [Events](#events)  
 
 ##<a id="description"></a>Object description
 
@@ -27,11 +28,17 @@ T - thickness of the segment equal to the difference between R2 and R1.
 α - initial angle of the segment - this is the angle between the horizontal axis X and the ray CA.  
 β - angle of the segment - this is the angle between the rays CA and CB.  
 
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* segment-gradient.js  
+* utilities.js  
+
 ##<a id="constructor"></a>Object creation  
 To create an object, the main parameters are passed to the constructor function:   
 >
 *id* - segment identificator as a text string.  
-*context* - CanvasRenderingContext2D for drawing a segment.  
+*context* - CanvasRenderingContext2D for drawing the segment.  
 *cx* - X coordinate of the segment center.  
 *cy* - Y coordinate of the segment center.  
 *r_in* - segment inner radius.  
@@ -52,7 +59,7 @@ The object will take the form of a circle if both of these conditions are met.
 
 ### Segment Style  
 >
-*gradient* - fill gradient. Type of value is <a href="segment-gradient.html">SegmentGradient</a>.
+*gradient* - fill gradient. Type of value is <a href="segment-gradient.html">SegmentGradient</a>.  
   
 >Valid *direction* values for a Linear Gradient:  
 >> _"from-center"_ - from segment center.  
@@ -63,6 +70,10 @@ The object will take the form of a circle if both of these conditions are met.
 >Valid *direction* values for a Radial Gradient:  
 >> _"from-center"_ - from segment center.  
 >> _"to-center"_ - to segment center.  
+
+>Valid *direction* values for a Conic Gradient:  
+>> _"clockwise"_.  
+>> _"anticlockwise"_.  
 
 >
 *background* - fill color (applies if fill gradient is not specified).  
@@ -95,7 +106,7 @@ D) Closing Border – extreme border when clockwise movement.
 If a separate segment border width and/or color is specified, then the specified style will be used to draw it.  
 If a separate border is not specified, then the general style of segment border will be used to draw it.  
 
-### Segment Flags
+### Object Flags
 >
 *visible* - flag ensures the visibility of the object if set in *true*.  
 *in_progress* - flag takes the value *true* during the animation.  
@@ -109,7 +120,9 @@ This method should be called after changing the properties of the object so that
 
 > *draw()* - draws an object.  
 
-> *instanceCopy()* - creates an independent copy of the object.
+> *instanceCopy()* - creates an independent copy of the object.  
+
+> *isPointInside(x, y)* - function for checking whether a point with coordinates (x,y) belongs to a figure.  
 
 ### Segment Animation
 

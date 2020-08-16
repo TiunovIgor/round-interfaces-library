@@ -10,12 +10,18 @@
 <hr/><h1>SegmentLevel</h1><h2>Содержание</h2>
 <ol>
   <li><a href="#description">Описание объекта</a></li>
+  <li><a href="#dependencies">Зависимости объекта</a></li>
   <li><a href="#constructor">Создание объекта</a></li>
   <li><a href="#examples">Примеры</a></li>
   <li><a href="#properties">Свойства</a></li>
   <li><a href="#methods">Методы</a></li>
   <li><a href="#events">События</a></li>
-</ol><h2><a id="description"></a>Описание объекта</h2><p>Сегментный уровень – совокупность сегментов, объединенных для совместного управления и анимации. (рис. 1).</p><p><img src="../../docs/images/segment_level.png" alt="SegmentLevel" /><br/>Рис. 1 - Уровень сегментов</p><h2><a id="constructor"></a>Создание объекта</h2><p>Для создания объекта в функцию-конструктор передаются основные параметры: </p>
+</ol><h2><a id="description"></a>Описание объекта</h2><p>Сегментный уровень – совокупность сегментов, объединенных для совместного управления и анимации. (рис. 1).</p><p><img src="../../docs/images/segment_level.png" alt="SegmentLevel" /><br/>Рис. 1 - Уровень сегментов</p><h2><a id="dependencies"></a>Зависимости объекта</h2><p>Для создания объекта типа SegmentLevel необходимо подключить следующие скрипты: </p>
+<ul>
+  <li>segment.js</li>
+  <li>segment-gradient.js</li>
+  <li>utilities.js</li>
+</ul><h2><a id="constructor"></a>Создание объекта</h2><p>Для создания объекта в функцию-конструктор передаются основные параметры: </p>
 <blockquote><p><em>id</em> - идентификатор сегмента в виде текстовой строки.<br/><em>context</em> - контекст типа CanvasRenderingContext2D для отрисовки сегмента.<br/><em>cx</em> - координата X центра сегментного уровня.<br/><em>cy</em> - координата Y центра сегментного уровня.<br/><em>r_in</em> - условный внутренний радиус. Радиусы сегментов одного уровня могут быть разными.</p>
 </blockquote><h2><a id="examples"></a>Примеры</h2><p><a href="../../examples/segment-level-examples.html" target="_blank">Примеры</a> использования различных свойств и методов объекта. </p><h2><a id="properties"></a>Свойства</h2><h3>Флаги уровня сегментов</h3>
 <blockquote><p><em>visible</em> - видимость. Значение <em>true</em> обеспечивает видимость объекта.<br/><em>segments_visible</em> - видимость сегментов.<br/><em>in_progress</em> - в процессе. Флаг принимает значение <em>true</em> в процессе анимации уровня сегментов. </p>

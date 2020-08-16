@@ -4,13 +4,19 @@
 
 # SegmentGradient
 
-## Содержание
+## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
+2. [Object dependencies](#dependencies)  
+3. [Object creation](#constructor)  
 
 ##<a id="description"></a>Object description
 
 Segment Gradient is a custom gradient for filling elements of round interfaces.  
+
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* utilities.js  
 
 ##<a id="constructor"></a>Object creation  
 

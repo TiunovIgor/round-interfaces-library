@@ -6,10 +6,11 @@
 
 ## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
-3. [Properties](#properties)  
-4. [Methods](#methods)  
-5. [Events](#events)  
+2. [Object dependencies](#dependencies)  
+3. [Object creation](#constructor)  
+4. [Properties](#properties)  
+5. [Methods](#methods)  
+6. [Events](#events)  
 
 ##<a id="description"></a>Object description
 
@@ -18,6 +19,11 @@ SegmentScaleMark is an auxilary class of the round interfaces library for implem
 
 ![SegmentScaleMark](../docs/images/segment_scale_mark.png)  
 Fig. 1 - Segment Scale Mark
+
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* utilities.js  
 
 ##<a id="constructor"></a>Object creation  
 To create an object, the main parameters are passed to the constructor function:   
@@ -51,7 +57,7 @@ This method should be called after changing the properties of the object so that
 
 > *draw()* - draws an object.  
 
-> *instanceCopy()* - creates an independent copy of the object.
+> *instanceCopy()* - creates an independent copy of the object.  
 
 ### Mark Animation
 

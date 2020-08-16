@@ -6,11 +6,12 @@
 
 ## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
-3. [Examples] (#examples)  
-4. [Properties](#properties)  
-5. [Methods](#methods)  
-6. [Events](#events)  
+2. [Object dependencies](#dependencies)
+3. [Object creation](#constructor)  
+4. [Examples] (#examples)  
+5. [Properties](#properties)  
+6. [Methods](#methods)  
+7. [Events](#events)  
 
 ##<a id="description"></a>Object description
 
@@ -24,6 +25,14 @@ R - radius of the base circle on which the centers of the array dots are located
 β - angle between array dots.  
 c - dot center.  
 r - dot radius.  
+
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* segment.js  
+* segment-dot.js  
+* segment-gradient.js  
+* utilities.js  
 
 ##<a id="constructor"></a>Object creation  
 To create an object, the main parameters are passed to the constructor function. These parameters are used to create the base segment:  

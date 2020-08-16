@@ -6,11 +6,12 @@
 
 ## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
-3. [Examples] (#examples)  
-4. [Properties](#properties)  
-5. [Methods](#methods)  
-6. [Events](#events)  
+2. [Object dependencies](#dependencies)
+3. [Object creation](#constructor)  
+4. [Examples] (#examples)  
+5. [Properties](#properties)  
+6. [Methods](#methods)  
+7. [Events](#events)  
 
 ##<a id="description"></a>Object description
 
@@ -18,6 +19,13 @@ Segment Level is a set of segments combined for joint management and animation. 
 
 ![SegmentLevel](../docs/images/segment_level.png)  
 Fig. 1 - Segment Level
+
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* segment.js  
+* segment-gradient.js  
+* utilities.js  
 
 ##<a id="constructor"></a>Object creation 
 To create an object, the main parameters are passed to the constructor function:   

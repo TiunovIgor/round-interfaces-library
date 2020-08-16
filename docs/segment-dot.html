@@ -7,21 +7,28 @@
 </head>
 <body>
 <p><a href="../readme.html">Home</a> → Segment Dot</p>
-<hr/><h1>SegmentDot</h1><h2>Содержание</h2>
+<hr/><h1>SegmentDot</h1><h2>Contents</h2>
 <ol>
   <li><a href="#description">Object description</a></li>
+  <li><a href="#dependencies">Object dependencies</a></li>
   <li><a href="#constructor">Object creation</a></li>
   <li><a href="#examples">Examples</a></li>
   <li><a href="#properties">Properties</a></li>
   <li><a href="#methods">Methods</a></li>
   <li><a href="#events">Events</a></li>
-</ol><h2><a id="description"></a>Object description</h2><p>Segment Dot is a round interface element represented as a circle.<br/>SegmentDot is an auxiliary class of the round interfaces library for implementing an array of dots. </p><p><img src="../docs/images/segment_dot.png" alt="SegmentDot" /><br/>Fig. 1 - Dot </p><h2><a id="constructor"></a>Object creation</h2><p>To create an object, the main parameters are passed to the constructor function: </p>
+</ol><h2><a id="description"></a>Object description</h2><p>Segment Dot is a round interface element represented as a circle.<br/>SegmentDot is an auxiliary class of the round interfaces library for implementing an array of dots. </p><p><img src="../docs/images/segment_dot.png" alt="SegmentDot" /><br/>Fig. 1 - Dot </p><h2><a id="dependencies"></a>Object dependencies</h2><p>The following scripts should be included in the &lt;head&gt; section: </p>
+<ul>
+  <li>segment-gradient.js</li>
+  <li>utilities.js</li>
+</ul><h2><a id="constructor"></a>Object creation</h2><p>To create an object, the main parameters are passed to the constructor function: </p>
 <blockquote><p><em>id</em> - dot identificator as a text string.<br/><em>context</em> - CanvasRenderingContext2D for drawing a dot.<br/><em>cx</em> - X coordinate of the dot center.<br/><em>cy</em> - Y coordinate of the dot center.<br/><em>r</em> - dot radius. </p>
 </blockquote><h2><a id="examples"></a>Examples</h2><p><a href="../examples/segment-dot-examples.html" target="_blank">Examples</a> of using various properties and methods of the object. </p><h2><a id="properties"></a>Properties</h2><h3>Dot Style</h3>
 <blockquote><p><em>gradient</em> - fill gradient. Type of value is <a href="segment-gradient.html">SegmentGradient</a>.</p><p>Valid <em>direction</em> values for a Linear Gradient: </p>
   <blockquote><p><em>"to-left"</em> - from right to left.<br/><em>"to-right"</em> - from left to right.<br/><em>"to-bottom"</em> - top down.<br/><em>"to-top"</em> - down up.</p>
   </blockquote><p>Valid <em>direction</em> values for a Radial Gradient: </p>
   <blockquote><p><em>"from-center"</em> - from dot center.<br/><em>"to-center"</em> - to dot center. </p>
+  </blockquote><p>Valid <em>direction</em> values for a Conic Gradient: </p>
+  <blockquote><p><em>"clockwise"</em>.<br/><em>"anticlockwise"</em>. </p>
   </blockquote><p><em>background</em> - fill color (applies if fill gradient is not specified).<br/><em>border_width</em> - dot border width.<br/><em>border_color</em> - dot border color. </p>
 </blockquote><h3>Dot Flags</h3>
 <blockquote><p><em>visible</em> - flag ensures the visibility of the object if set in <em>true</em>.<br/><em>in_progress</em> - flag takes the value <em>true</em> during the animation. </p>

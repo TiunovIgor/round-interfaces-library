@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+        
+        <link rel="shortcut icon" href="../favicon.png"> 
+
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-array.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/segment-equalizer.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Round Equalizer Examples</div>
+        
+        <div class="example-block">
+            <div class="example-caption">Outer Segment Equalizer</div>
+            <div class="play-pause-button play"></div>
+            <canvas id="ex-1" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        
+        <div class="example-block">
+            <div class="example-caption">Inner Segment Equalizer</div>
+            <canvas id="ex-2" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+                        <div class="play-pause-button play"></div>
+
+        </div>      
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {         
+        let audio = new Audio();
+        
+        audio.preload = 'auto';        
+        audio.src = "../sounds/Lately Kind of Yeah - Rampart - 06 Noise.mp3";
+        audio.controls = true;
+        audio.style = 'display: block; margin: auto';
+        document.body.appendChild(audio);
+        
+        let audio_context = new (window.AudioContext || window.webkitAudioContext);
+        let analyser = audio_context.createAnalyser();
+        
+        let source = audio_context.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audio_context.destination);   
+        analyser.fftSize = 128;
+               
+        audio.addEventListener('playing', function() {
+            if(audio_context.state !== 'running') { audio_context.resume(); }
+        });
+
+        audio.addEventListener('play', function() {
+            window.requestAnimFrame(renderFrame_1);
+            window.requestAnimFrame(renderFrame_2);
+            
+            changeButtonsToPause();
+        });
+        
+        audio.addEventListener('pause', function() {
+            changeButtonsToPlay();
+        });
+        
+        audio.addEventListener('ended', function() {
+            changeButtonsToPlay();
+        });
+        
+        function changeButtonsToPause() {
+            let buttons = document.getElementsByClassName('play-pause-button');
+            console.log(buttons);
+            Array.prototype.forEach.call(buttons, function(button) {
+                button.classList.remove('play');
+                button.classList.add('pause');
+            });    
+        }
+        
+        function changeButtonsToPlay() {
+            let buttons = document.getElementsByClassName('play-pause-button');
+            console.log(buttons);
+            Array.prototype.forEach.call(buttons, function(button) {
+                button.classList.remove('pause');
+                button.classList.add('play');
+            });
+        }
+        
+        let buttons = document.getElementsByClassName('play-pause-button');
+        console.log(buttons);
+        Array.prototype.forEach.call(buttons, function(button) {
+            button.addEventListener('click', function() {
+                if(audio.duration > 0 && !audio.paused) {
+                    audio.pause();
+                    changeButtonsToPause();
+                }
+                else {
+                    audio.play();
+                    window.requestAnimFrame(renderFrame_1);
+                    window.requestAnimFrame(renderFrame_2);
+                    changeButtonsToPlay();
+                }           
+            });
+        });
+        
+        if(audio_context.state !== 'running') { audio_context.resume(); }
+        
+        // Outer Segment Equalizer
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2);
+
+        let equal_1 = new SegmentEqualizer('equal-1', context_1, c_1.x, c_1.y, 80, 80, -90, 360);
+        equal_1.segments_count = 64;
+        equal_1.proportional = true;
+        equal_1.segment_gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, yellow 30%, green 45%, blue 100%');
+        equal_1.build();
+        equal_1.draw();
+        
+        function renderFrame_1() {  
+            if(audio.paused) return;
+            
+            let bufferLength = analyser.frequencyBinCount;
+            let dataArray = new Uint8Array(bufferLength);
+            analyser.getByteTimeDomainData(dataArray);
+            
+            let values = [];
+            
+            for(let i=0; i < dataArray.length; i++) {
+                values[i] = (dataArray[i] / 128.0);
+            }
+            
+            context_1.clearRect(0, 0, canvas_1.width, canvas_1.height);
+            equal_1.changeValues(values);
+            equal_1.draw();
+            
+            setTimeout(function() {
+                window.requestAnimFrame(renderFrame_1);
+            }, 50);
+        };      
+        
+        canvas_1.addEventListener('click', function() {
+            if(audio_context.state !== 'running') { audio_context.resume(); }
+        
+            if(audio.duration > 0 && !audio.paused) {
+                audio.pause();
+            }
+            else {
+                audio.play();
+                window.requestAnimFrame(renderFrame_1);
+                window.requestAnimFrame(renderFrame_2);
+            }           
+        });
+        // ~ Outer Segment Equalizer ~
+        
+        // Inner Segment Equalizer
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2);
+
+        let equal_2 = new SegmentEqualizer('equal-2', context_2, c_2.x, c_2.y, 160, -80, -90, 360);
+        equal_2.segments_count = 64;
+        equal_2.proportional = true;
+        equal_2.segment_gradient = new SegmentGradient('radial', 'from-center', 'orange 0%, yellow 30%, green 45%, blue 100%');
+        equal_2.build();
+        equal_2.draw();
+        
+        function renderFrame_2() {     
+            if(audio.paused) return;
+            
+            let bufferLength = analyser.frequencyBinCount;
+            let dataArray = new Uint8Array(bufferLength);
+            analyser.getByteTimeDomainData(dataArray);
+           
+            let values = [];
+            
+            for(let i=0; i < dataArray.length; i++) {
+                values[i] = (dataArray[i] / 128.0);
+            }
+            
+            context_2.clearRect(0, 0, canvas_2.width, canvas_2.height);
+            equal_2.changeValues(values);
+            equal_2.draw();
+            
+            setTimeout(function() {
+                window.requestAnimFrame(renderFrame_2);
+            }, 50);
+        }            
+        
+        canvas_2.addEventListener('click', function() {
+            if(audio_context.state !== 'running') { audio_context.resume(); }
+        
+            if(audio.duration > 0 && !audio.paused) {
+                audio.pause();
+            }
+            else {
+                audio.play();
+                window.requestAnimFrame(renderFrame_1);
+                window.requestAnimFrame(renderFrame_2);
+            }           
+        });
+        // ~ Inner Segment Equalizer ~       
+    });   
+</script>

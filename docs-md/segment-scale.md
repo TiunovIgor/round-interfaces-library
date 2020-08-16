@@ -4,13 +4,14 @@
 
 # SegmentScale
 
-## Содержание
+## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
-3. [Examples] (#examples)  
-4. [Properties](#properties)  
-5. [Methods](#methods)  
-6. [Events](#events)  
+2. [Object dependencies](#dependencies)
+3. [Object creation](#constructor)  
+4. [Examples] (#examples)  
+5. [Properties](#properties)  
+6. [Methods](#methods)  
+7. [Events](#events)  
 
 ##<a id="description"></a>Object description
 
@@ -18,6 +19,15 @@ Segment Scale is an a round measuring scale (Fig. 1).
 
 ![SegmentScaleGeometry](../docs/images/segment_scale_geometry.png)  
 Fig. 1 - Segment Scale Geometry.  
+
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* segment.js  
+* segment-scale-mark.js  
+* segment-scale-sign.js  
+* segment-gradient.js  
+* utilities.js  
 
 ##<a id="constructor"></a>Object creation  
 
@@ -78,10 +88,19 @@ Fig. 2 - Segment Scale with two levels of marks.
 >
 *mark_r_in* - scale marks inner radius. Ignored if property *mark_position* is set.  
 
+>
+*sign_r_in* - inner radius of scale signs.  
+*sign_font* - font of the sign text.  
+*sign_text_color* - color of the sign text.  
+*sign_text_border_width* - border width of the sign text.  
+*sign_text_border_color* - border color of the sign text.  
+*sign_text_direction* - direction of the sign text.  
+
 ### Segment Scale Flags
 >
 *visible* - value *true* ensures object visibility.  
 *marks_visible* - value *true* ensures scale marks visibility.  
+*signs_visible* - value *true* ensures scale signs visibility.  
 *in_progress* - flag takes the value *true* during the animation.  
 
 ##<a id="methods"></a>Methods

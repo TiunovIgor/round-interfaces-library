@@ -10,6 +10,8 @@
         <link rel="stylesheet" type="text/css" href="../css/plain-color.css">
         <link rel="stylesheet" type="text/css" href="../css/hi-tech.css">
         <link rel="stylesheet" type="text/css" href="../css/futuristic.css">
+        <link rel="stylesheet" type="text/css" href="../css/mechanics.css">
+        <link rel="stylesheet" type="text/css" href="../css/palette.css">
                                
         <script type="text/javascript" src="../js/segment.js"></script>
         <script type="text/javascript" src="../js/segment-level.js"></script>
@@ -24,6 +26,8 @@
         <script type="text/javascript" src="../gui-examples-js/plain-color.js"></script>
         <script type="text/javascript" src="../gui-examples-js/hi-tech.js"></script>
         <script type="text/javascript" src="../gui-examples-js/futuristic.js"></script>
+        <script type="text/javascript" src="../gui-examples-js/mechanics.js"></script>
+        <script type="text/javascript" src="../gui-examples-js/palette.js"></script>
     </head>
     <body>
         <div id="header">Round Interfaces Library</div>
@@ -52,7 +56,24 @@
             <canvas id="example-3" width="400" height="400">
                 <div class="canvas-off">use a canvas-compatible browser</div>
             </canvas>
-        </div>       
+        </div>  
+        
+        <!--
+        <div id="example-block-4" class="example-block">
+            <div class="example-caption">Mechanics</div>
+            <div id="mechanics-button"></div>
+            <canvas id="example-4" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
+        -->
+        <div id="example-block-5" class="example-block">
+            <div class="example-caption">Palette</div>
+            <div id="palette-button"></div>
+            <canvas id="example-5" width="400" height="400">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>
     </body>
 </html>
 
@@ -67,6 +88,11 @@
         let interface_3 = new Futuristic('example-3');
         let func_3 = interface_3.animate.bind(interface_3);
         
+        //let interface_4 = new Mechanics('example-4');
+        //let func_4 = interface_4.animate.bind(interface_4);
+        
+        let interface_5 = new Palette('example-5');
+                
         let plain_color_button = document.querySelector("#plain-color-button");
         plain_color_button.addEventListener("click", function () {
             plain_color_button.classList.add('toggle');
@@ -93,5 +119,18 @@
         addEventListener('futuristic-animation-finished', function() {
             futuristic_button.classList.remove('toggle');
         });
+        
+        /*
+        let mechanics_button = document.querySelector("#mechanics-button");
+        mechanics_button.addEventListener("click", function() {
+            mechanics_button.classList.add('toggle');
+            //func_4();
+        });
+        addEventListener('mechanics-animation-finished', function() {
+            mechanics_button.classList.remove('toggle');
+        });
+        */
+        
+        let palette_button = document.querySelector("#palette-button");
     });   
 </script>

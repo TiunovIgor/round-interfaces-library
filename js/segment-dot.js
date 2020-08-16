@@ -1,4 +1,4 @@
-function Dot(id, context, center_x, center_y, radius) {    
+function SegmentDot(id, context, center_x, center_y, radius) {    
     this.id = id; // Object identificator
     this.context = context; // CanvasRenderingContext2D for drawing a dot
     this.cx = center_x; // X coordinate of the dot center
@@ -22,11 +22,11 @@ function Dot(id, context, center_x, center_y, radius) {
     this.calc();
 };
 
-Dot.prototype.calc = function() {     
+SegmentDot.prototype.calc = function() {     
     dispatchEvent(new CustomEvent("segment-dot-changed", { detail : { dot : this } } ));
 }; 
         
-Dot.prototype.draw = function() {   
+SegmentDot.prototype.draw = function() {   
     if(this.visible) {
         let cx = this.cx, cy = this.cy;
         let r = this.r;
@@ -96,7 +96,7 @@ Dot.prototype.draw = function() {
     this.context.closePath();
 };
 
-Dot.prototype.prepareAnim = function() {
+SegmentDot.prototype.prepareAnim = function() {
     this.anim_r = this.r;
     
     if((this.gradient !== null) && (this.gradient instanceof SegmentGradient)) { this.anim_gradient = this.gradient.instanceCopy(); }
@@ -106,7 +106,7 @@ Dot.prototype.prepareAnim = function() {
     this.anim_border_color = this.border_color;
 }
        
-Dot.prototype.appear = function(direction, duration, delay) {
+SegmentDot.prototype.appear = function(direction, duration, delay) {
     this.prepareAnim();
           
     this.in_progress = true;
@@ -143,14 +143,14 @@ Dot.prototype.appear = function(direction, duration, delay) {
         window.requestAnimFrame(appearAnim); }, delay * 1000);
 };        
         
-Dot.prototype.appearFromCenter = function(t) {
+SegmentDot.prototype.appearFromCenter = function(t) {
     let r = this.r * t;
     if(r < this.r) { this.anim_r = r; }
     else { this.anim_r = this.r; };
     this.calc();
 };
 
-Dot.prototype.stopAppearance = function() {
+SegmentDot.prototype.stopAppearance = function() {
     this.anim_r = 0;    
     
     this.in_progress = false;
@@ -159,7 +159,7 @@ Dot.prototype.stopAppearance = function() {
     this.calc();
 };
 
-Dot.prototype.disappear = function(direction, duration, delay) {
+SegmentDot.prototype.disappear = function(direction, duration, delay) {
     this.prepareAnim();
                            
     this.in_progress = true;
@@ -196,14 +196,14 @@ Dot.prototype.disappear = function(direction, duration, delay) {
         window.requestAnimFrame(disappearAnim); }, delay * 1000);
 };        
     
-Dot.prototype.disappearToCenter = function(t) {
+SegmentDot.prototype.disappearToCenter = function(t) {
     let r = this.r * (1 - t);
     if(r > 0) { this.anim_r = r; }
     else { this.anim_r = this.r; };
     this.calc();
 };
 
-Dot.prototype.stopDisappearance = function() {
+SegmentDot.prototype.stopDisappearance = function() {
     this.anim_r = 0;    
     
     this.in_progress = false;
@@ -212,7 +212,7 @@ Dot.prototype.stopDisappearance = function() {
     this.calc();
 };
     
-Dot.prototype.fadeIn = function(duration, delay) {
+SegmentDot.prototype.fadeIn = function(duration, delay) {
     this.prepareAnim();
                         
     this.calc();
@@ -266,14 +266,14 @@ Dot.prototype.fadeIn = function(duration, delay) {
         window.requestAnimFrame(fadeInAnim); }, delay * 1000);
 };
 
-Dot.prototype.stopFadingIn = function() {
+SegmentDot.prototype.stopFadingIn = function() {
     this.visible = true;
     this.in_progress = false;
     
     this.calc();
 };
 
-Dot.prototype.fadeOut = function(duration, delay) {
+SegmentDot.prototype.fadeOut = function(duration, delay) {
     this.prepareAnim();
                         
     this.in_progress = true;
@@ -327,14 +327,14 @@ Dot.prototype.fadeOut = function(duration, delay) {
         window.requestAnimFrame(fadeOutAnim); }, delay * 1000);
 };
 
-Dot.prototype.stopFadingOut = function() {
+SegmentDot.prototype.stopFadingOut = function() {
     this.visible = false;
     this.in_progress = false;
     
     this.calc();
 };
 
-Dot.prototype.instanceCopy = function() {
+SegmentDot.prototype.instanceCopy = function() {
     const copy = new this.constructor();
     const keys = Object.keys(this);
     keys.forEach(key => { copy[key] = this[key]; });

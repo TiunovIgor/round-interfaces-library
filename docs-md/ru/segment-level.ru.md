@@ -6,11 +6,12 @@
 
 ## Содержание
 1. [Описание объекта](#description)  
-2. [Создание объекта](#constructor)  
-3. [Примеры] (#examples)  
-4. [Свойства](#properties)  
-5. [Методы](#methods)  
-6. [События](#events)  
+2. [Зависимости объекта](#dependencies)  
+3. [Создание объекта](#constructor)  
+4. [Примеры] (#examples)  
+5. [Свойства](#properties)  
+6. [Методы](#methods)  
+7. [События](#events)  
 
 ##<a id="description"></a>Описание объекта
 
@@ -18,6 +19,13 @@
 
 ![SegmentLevel](../../docs/images/segment_level.png)  
 Рис. 1 - Уровень сегментов
+
+##<a id="dependencies"></a>Зависимости объекта  
+Для создания объекта типа SegmentLevel необходимо подключить следующие скрипты:  
+
+* segment.js  
+* segment-gradient.js  
+* utilities.js  
 
 ##<a id="constructor"></a>Создание объекта 
 Для создания объекта в функцию-конструктор передаются основные параметры:   

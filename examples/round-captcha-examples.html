@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Round Interfaces Library</title>
+
+        <link rel="shortcut icon" href="../favicon.png"> 
+        
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+                               
+        <script type="text/javascript" src="../js/segment.js"></script>
+        <script type="text/javascript" src="../js/segment-gradient.js"></script>
+        <script type="text/javascript" src="../js/segment-captcha.js"></script>
+        <script type="text/javascript" src="../js/utilities.js"></script>
+    </head>
+    <body>
+        <div id="header">Round Interfaces Library</div>
+        <div class="header-2">Round Captcha Examples</div>
+        
+        <div class="ex-block">
+            <div class="ex-caption">Default Round Captcha</div>
+            <canvas id="ex-1" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>    
+        
+        <div class="ex-block">
+            <div class="ex-caption">Proportional</div>
+            <canvas id="ex-2" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>  
+        
+        <div class="ex-block">
+            <div class="ex-caption">Change position of base segment by click</div>
+            <canvas id="ex-3" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>   
+        
+        <div class="ex-block">
+            <div class="ex-caption">Unlock Captcha</div>
+            <canvas id="ex-4" width="200" height="200">
+                <div class="canvas-off">use a canvas-compatible browser</div>
+            </canvas>
+        </div>  
+    </body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // Default Round Captcha
+        let canvas_1 = document.getElementById('ex-1');
+        let context_1 = canvas_1.getContext('2d');
+        context_1.width = canvas_1.width;
+        context_1.height = canvas_1.height;
+        let c_1 = new Point(context_1.width/2, context_1.height/2);
+
+        let captcha_1 = new SegmentCaptcha('captcha-1', context_1, c_1.x, c_1.y, 15, 80);
+        captcha_1.build();     
+        captcha_1.draw();
+        // ~ Default Segment ~
+        
+        // Proportional
+        let canvas_2 = document.getElementById('ex-2');
+        let context_2 = canvas_2.getContext('2d');
+        context_2.width = canvas_2.width;
+        context_2.height = canvas_2.height;
+        let c_2 = new Point(context_2.width/2, context_2.height/2);
+
+        let captcha_2 = new SegmentCaptcha('captcha-2', context_2, c_2.x, c_2.y, 15, 80);
+        captcha_2.proportional = true;
+        captcha_2.build();     
+        captcha_2.draw();
+        // ~ Proportional ~
+        
+        // Change position of base segment by click
+        let canvas_3 = document.getElementById('ex-3');
+        let context_3 = canvas_3.getContext('2d');
+        context_3.width = canvas_3.width;
+        context_3.height = canvas_3.height;
+        let c_3 = new Point(context_3.width/2, context_3.height/2);
+
+        let captcha_3 = new SegmentCaptcha('captcha_3', context_3, c_3.x, c_3.y, 15, 80);
+        captcha_3.build();
+        captcha_3.draw();    
+                
+        canvas_3.addEventListener('click', function() {
+            context_3.clearRect(0, 0, canvas_3.width, canvas_3.height);
+            if(captcha_3.base_segment_position === 'inner') { captcha_3.base_segment_position = 'outer'; }
+            else if(captcha_3.base_segment_position === 'outer') { captcha_3.base_segment_position = 'inner'; };
+            captcha_3.build();
+            captcha_3.draw();
+        });
+        // ~ Change position of base segment by click ~
+        
+        // Unlock Captcha
+        let canvas_4 = document.getElementById('ex-4');
+        let context_4 = canvas_4.getContext('2d');
+        context_4.width = canvas_4.width;
+        context_4.height = canvas_4.height;
+        let c_4 = new Point(context_4.width/2, context_4.height/2);
+
+        let captcha_4 = new SegmentCaptcha('captcha_4', context_4, c_4.x, c_4.y, 15, 80);
+        captcha_4.base_segment_gradient = new SegmentGradient('radial', 'from-center', 'skyblue 50%, steelblue 100%');
+        captcha_4.segment_gradient = new SegmentGradient('radial', 'to-center', 'skyblue 50%, steelblue 100%');
+        captcha_4.border_color = 'darkblue';
+        captcha_4.space_thickness = 6;
+        captcha_4.build();
+        captcha_4.draw();        
+        
+        addEventListener('segment-captcha-changed', function(e) {
+            if(e.detail.captcha === captcha_4) {     
+                context_4.clearRect(0, 0, canvas_4.width, canvas_4.height);
+                captcha_4.draw();
+            }
+        });
+        
+        addEventListener('segment-captcha-unlocked', function(e) {
+            if(e.detail.captcha === captcha_4) {
+                captcha_4.build();
+                captcha_4.draw();
+            }
+        });
+        // ~ Unlock Captcha ~
+    });   
+</script>

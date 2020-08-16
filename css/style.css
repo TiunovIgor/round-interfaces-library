@@ -49,6 +49,27 @@ body {
     text-align: center;
 }
 
+.play-pause-button {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin-top: 25px;
+    top: 174px;
+    left: 150px;
+}
+
+.play-pause-button.play {    
+    background: url('../svg/play-button.svg');
+    background-repeat: no-repeat;
+    background-size: 100px;    
+}
+
+.play-pause-button.pause {
+    background: url('../svg/pause-button.svg');
+    background-repeat: no-repeat;
+    background-size: 100px;     
+}
+
 #example-1 {      
     width: 400px;
     height: 400px;

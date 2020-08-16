@@ -9,7 +9,7 @@
 *window.requestAnimFrame(callback)* is an implementation of the requestAnimationFrame function for planning animations.  
 Used to start the animation of all graphic objects represented in this library.  
 
-##<a id="point"></a> Point
+##<a id="point"></a>Point
 
 *Point(x, y)* - creates a point as an object with parameters x and y.  
 

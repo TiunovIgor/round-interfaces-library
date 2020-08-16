@@ -35,6 +35,8 @@ SegmentScaleMark.prototype.calc = function() {
         this.anim_dy2 = this.anim_r_out * Math.sin(this.anim_a) + this.cy; // Second point. Y coordinate
     }
     else {
+        this.r_out = this.r_in + this.length;
+        
         this.a = this.angle * Math.PI / 180;
         
         this.dx1 = this.r_in * Math.cos(this.a) + this.cx;

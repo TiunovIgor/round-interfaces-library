@@ -4,13 +4,14 @@
 
 # SegmentDot
 
-## Содержание
+## Contents
 1. [Object description](#description)  
-2. [Object creation](#constructor)  
-3. [Examples] (#examples)  
-4. [Properties](#properties)  
-5. [Methods](#methods)  
-6. [Events](#events)  
+2. [Object dependencies](#dependencies)
+3. [Object creation](#constructor)  
+4. [Examples] (#examples)  
+5. [Properties](#properties)  
+6. [Methods](#methods)  
+7. [Events](#events)  
 
 ##<a id="description"></a>Object description
 
@@ -19,6 +20,12 @@ SegmentDot is an auxiliary class of the round interfaces library for implementin
 
 ![SegmentDot](../docs/images/segment_dot.png)  
 Fig. 1 - Dot  
+
+##<a id="dependencies"></a>Object dependencies  
+The following scripts should be included in the \<head> section:  
+
+* segment-gradient.js  
+* utilities.js  
 
 ##<a id="constructor"></a>Object creation  
 To create an object, the main parameters are passed to the constructor function:   
@@ -47,6 +54,10 @@ To create an object, the main parameters are passed to the constructor function:
 >Valid *direction* values for a Radial Gradient:  
 >> _"from-center"_ - from dot center.  
 >> _"to-center"_ - to dot center.  
+
+>Valid *direction* values for a Conic Gradient:  
+>> _"clockwise"_.  
+>> _"anticlockwise"_.  
 
 >
 *background* - fill color (applies if fill gradient is not specified).  
